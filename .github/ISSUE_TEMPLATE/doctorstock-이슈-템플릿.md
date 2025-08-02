@@ -2,7 +2,7 @@
 name: DoctorStock 이슈 템플릿
 about: DoctorStock 이슈 템플릿
 title: "[Feat] "
-labels: ''
+labels: feat
 assignees: GeonHyeongKim
 
 ---
