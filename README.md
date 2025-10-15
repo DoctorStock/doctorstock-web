@@ -1,6 +1,7 @@
 # 💊 Doctor Stock
 
 ## 🤝 규칙
+
 <details>
 <summary>코드 컨벤션</summary>
 <div markdown="1">
@@ -21,6 +22,7 @@
 <div markdown="2">
 
 - #이슈번호-feat/큰기능명/세부기능명
+
 ```
 예시)
 #1-fix/mypage/update-user-info
