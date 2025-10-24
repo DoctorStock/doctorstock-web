@@ -1,3 +1,7 @@
 .logo {
-    height: 32px;
+  height: 32px;
+}
+
+.loginFormWrap {
+  max-width: 336px;
 }

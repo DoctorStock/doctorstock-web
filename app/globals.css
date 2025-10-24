@@ -1,6 +1,10 @@
 @import "./theme.css";
 
-/* ===== 1. Reset & Normalize ===== */
+/* ============================================
+  Reset & Normalize
+  ============================================ */
+
+/* ===== 1. 기본 리셋 ===== */
 *,
 *::before,
 *::after {
@@ -68,6 +72,7 @@ input,
 textarea,
 select {
   border: none;
+  outline: 2px solid var(--line-normal);
 }
 
 textarea {
@@ -113,4 +118,25 @@ ol {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+/* ============================================
+  custom 
+  ============================================ */
+
+/* ===== 1. 버튼 커스텀 ===== */
+.btn-primary {
+  background-color: var(--color-primary-normal);
+  color: var(--static-white);
+  cursor: pointer;
+  border: none;
+  height: 48px;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.btn-primary:disabled {
+  background-color: var(--interaction-disable);
+  color: var(--label-assistive);
+  cursor: not-allowed;
 }

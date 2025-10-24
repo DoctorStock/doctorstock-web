@@ -2,17 +2,35 @@
 
 import { useState } from "react";
 import BasicModal from "./components/BasicModal";
+import PasswordResetModal from "./components/PasswordResetModal";
 import styles from "./page.module.css";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(false);
+  const [saveId, setSaveId] = useState(false);
+  const [isPasswordResetModalOpen, setIsPasswordResetModalOpen] =
+    useState(false);
+  const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
+  const [basicModalMessage, setBasicModalMessage] = useState(false);
+
   const handleSubmit = () => {};
+
+  //버튼 활성화를 위한 폼 유효성 체크
+  const isFormValid = userId.trim() !== "" && userPassword.trim() !== "";
+
+  const handlePasswordResetSuccess = (userId: string) => {
+    setBasicModalMessage(
+      `아이디 ${userId}의 비밀번호를 변경하였습니다. 새로운 비밀번호로 로그인 해주세요.`
+    );
+    setIsBasicModalOpen(true);
+  };
 
   return (
     <div>
-      <div>
+      <div className={styles.loginFormWrap}>
         <h1>
           <img
             src="/assets/logo.svg"
@@ -56,8 +74,52 @@ export default function Login() {
               )}
             </button>
           </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={autoLogin}
+                onChange={(e) => {
+                  setAutoLogin(e.target.checked);
+                }}
+              />
+              <span>자동로그인</span>
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={saveId}
+                onChange={(e) => {
+                  setSaveId(e.target.checked);
+                }}
+              />
+              <span>아이디저장</span>
+            </label>
+          </div>
+          <button type="submit" disabled={!isFormValid} className="btn-primary">
+            로그인
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsPasswordResetModalOpen(true);
+            }}
+          >
+            비밀번호 재설정
+          </button>
         </form>
       </div>
+      <PasswordResetModal
+        isOpen={isPasswordResetModalOpen}
+        onClose={() => setIsPasswordResetModalOpen(false)}
+        onSuccess={handlePasswordResetSuccess}
+      />
+
+      <BasicModal
+        isOpen={isBasicModalOpen}
+        onClose={() => setIsBasicModalOpen(false)}
+        message={basicModalMessage}
+      />
     </div>
   );
 }
