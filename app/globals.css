@@ -140,3 +140,12 @@ table {
   color: var(--label-assistive);
   cursor: not-allowed;
 }
+
+/* ===== 2. 인풋 상태 메세지 ===== */
+.basic-message {
+  color: var(--label-alternative);
+}
+
+.error-message {
+  color: var(--status-destructive);
+}
