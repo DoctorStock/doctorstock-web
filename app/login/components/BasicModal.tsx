@@ -15,8 +15,8 @@ export default function BasicModal({
   if (!isOpen) return null;
 
   return (
-    <div>
-      <div>
+    <div className="modalOverlay">
+      <div className="modalBox">
         <p>{message}</p>
         <button onClick={onClose}>확인</button>
       </div>

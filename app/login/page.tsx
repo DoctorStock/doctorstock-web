@@ -14,7 +14,7 @@ export default function Login() {
   const [isPasswordResetModalOpen, setIsPasswordResetModalOpen] =
     useState(false);
   const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
-  const [basicModalMessage, setBasicModalMessage] = useState(false);
+  const [basicModalMessage, setBasicModalMessage] = useState("");
 
   const handleSubmit = () => {};
 
@@ -29,7 +29,7 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className={styles.loginWrap}>
       <div className={styles.loginFormWrap}>
         <h1>
           <img
@@ -39,7 +39,7 @@ export default function Login() {
           />
         </h1>
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="inputAssets">
             <label htmlFor="userId">아이디</label>
             <input
               type="text"
@@ -50,8 +50,17 @@ export default function Login() {
               }}
               placeholder="아이디를 입력해 주세요."
             />
+            {userId && (
+              <button
+                type="button"
+                onClick={() => setUserId("")}
+                aria-label="창 비우기"
+              >
+                <img src="/assets/input-reset.png" alt="창 비우기" />
+              </button>
+            )}
           </div>
-          <div>
+          <div className="inputAssets">
             <label htmlFor="userPassword">비밀번호</label>
             <input
               id="userPassword"
@@ -74,8 +83,8 @@ export default function Login() {
               )}
             </button>
           </div>
-          <div>
-            <label>
+          <div className={styles.loginCheckboxGroup}>
+            <label className="custom-checkbox">
               <input
                 type="checkbox"
                 checked={autoLogin}
@@ -85,7 +94,7 @@ export default function Login() {
               />
               <span>자동로그인</span>
             </label>
-            <label>
+            <label className="custom-checkbox">
               <input
                 type="checkbox"
                 checked={saveId}
@@ -96,7 +105,11 @@ export default function Login() {
               <span>아이디저장</span>
             </label>
           </div>
-          <button type="submit" disabled={!isFormValid} className="btn-primary">
+          <button
+            type="submit"
+            disabled={!isFormValid}
+            className={`btn-primary ${styles.loginSubmitBtn}`}
+          >
             로그인
           </button>
           <button
@@ -104,6 +117,7 @@ export default function Login() {
             onClick={() => {
               setIsPasswordResetModalOpen(true);
             }}
+            className={styles.passwordResetBtn}
           >
             비밀번호 재설정
           </button>

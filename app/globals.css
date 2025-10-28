@@ -72,7 +72,7 @@ input,
 textarea,
 select {
   border: none;
-  outline: 2px solid var(--line-normal);
+  outline: initial;
 }
 
 textarea {
@@ -87,17 +87,7 @@ picture {
   height: auto;
 }
 
-/* ===== 5. 포커스 상태 ===== */
-:focus-visible {
-  outline: 2px solid var(--color-primary-normal);
-  outline-offset: 2px;
-}
-
-button:focus-visible {
-  outline-offset: -2px;
-}
-
-/* ===== 6. Selection ===== */
+/* ===== 5. Selection ===== */
 ::selection {
   background-color: var(--color-primary-normal);
   color: white;
@@ -132,6 +122,7 @@ table {
   border: none;
   height: 48px;
   width: 100%;
+  font-weight: 700;
   border-radius: 6px;
 }
 
@@ -148,4 +139,86 @@ table {
 
 .error-message {
   color: var(--status-destructive);
+}
+
+/* ===== 3. 폼 요소 공통 (input) ===== */
+.inputAssets {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.inputAssets label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inputAssets input {
+  width: 100%;
+  padding: 12px 45px 12px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line-normal);
+}
+
+.inputAssets input:focus {
+  border-color: rgba(67, 76, 232, 0.43);
+  box-shadow: 0 0 0 2px rgba(67, 76, 232, 0.43);
+}
+
+.inputAssets input.input-error {
+  border-color: rgba(255, 41, 41, 0.43);
+  box-shadow: 0 0 0 2px rgba(255, 41, 41, 0.43);
+}
+
+.inputAssets button {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.inputAssets .input-message {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* ===== 4. 커스텀 체크박스 ===== */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -mos-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--line-normal);
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-checkbox input[type="checkbox"]:checked {
+  background-color: var(--color-primary-normal);
+  border-color: var(--color-primary-normal);
+}
+
+.custom-checkbox input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  width: 18px;
+  height: 18px;
+  background-image: url(/assets/custom-check.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }

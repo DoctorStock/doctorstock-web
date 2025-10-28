@@ -1,7 +1,33 @@
+.loginWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .logo {
   height: 32px;
+  margin: 0 auto 50px;
 }
 
 .loginFormWrap {
-  max-width: 336px;
+  min-width: 336px;
+}
+
+.loginSubmitBtn {
+  margin-top: 20px;
+}
+
+.loginCheckboxGroup {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  gap: 16px;
+}
+
+.passwordResetBtn {
+  color: var(--label-neutral);
+  text-align: center;
+  margin: 20px auto;
+  font-weight: 600;
+  width: 100%;
 }
