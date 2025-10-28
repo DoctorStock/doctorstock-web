@@ -44,6 +44,20 @@ export interface FormData {
   url: string;
 }
 
+// 바코드 데이터를 PurchaseItem으로 변환하는 함수
+export const convertBarcodeItemToPurchaseItem = (barcodeItem: BarcodeItem): PurchaseItem => {
+  return {
+    id: Date.now(),
+    category: barcodeItem.meaClassNo || '의료기기',
+    productName: barcodeItem.itemName || barcodeItem.typeName || '상품명 없음',
+    quantity: barcodeItem.packQuantity || 1,
+    unit: 'ea',
+    unitPrice: 0, // API에서 가격 정보가 없으므로 기본값
+    purchasePrice: 0,
+    barcodeData: barcodeItem
+  };
+};
+
 // example data
 export const initialPurchaseItems: PurchaseItem[] = [
   { id: 1, category: '의료소모품', productName: 'aaaa', quantity: 12, unit: 'ea', unitPrice: 1000, purchasePrice: 12000 },
