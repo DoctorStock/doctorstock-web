@@ -51,7 +51,7 @@ export default function BasicModal({
   } else if (confirmPassword === newPassword) {
     confirmMessage = "비밀번호가 일치합니다.";
   } else {
-    confirmMessage = "비밀번호가 불일치합니다.";
+    confirmMessage = "비밀번호가 불일치합니다다다.";
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
