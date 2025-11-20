@@ -213,8 +213,8 @@ table {
 .custom-checkbox input[type="checkbox"]:checked::after {
   content: "";
   position: absolute;
-  top: 3.5px;
-  left: 2.2px;
+  top: 3.7px;
+  left: 2.8px;
   width: 10.73px;
   height: 7.73px;
   background-image: url(/assets/custom-check.png);

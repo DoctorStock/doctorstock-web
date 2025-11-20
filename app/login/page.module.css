@@ -1,3 +1,16 @@
+.footerInquiry {
+  position: absolute;
+  bottom: 60px;
+  display: flex;
+  gap: 8px;
+  color: var(--label-neutral);
+}
+
+.footerInquiry a {
+  border-bottom: 1px solid var(--label-strong);
+  color: var(--label-strong);
+}
+
 .loginWrap {
   display: flex;
   justify-content: center;

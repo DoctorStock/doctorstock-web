@@ -4,6 +4,7 @@ import { useState } from "react";
 import BasicModal from "./components/BasicModal";
 import PasswordResetModal from "./components/PasswordResetModal";
 import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
@@ -122,6 +123,12 @@ export default function Login() {
             비밀번호 재설정
           </button>
         </form>
+      </div>
+      <div className={styles.footerInquiry}>
+        <p>닥터스톡 이용 관련 문의가 있으신가요?</p>
+        <Link href="/support" className={styles.footerInquiryLink}>
+          문의하기
+        </Link>
       </div>
       <PasswordResetModal
         isOpen={isPasswordResetModalOpen}

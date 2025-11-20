@@ -6,14 +6,3 @@
   min-height: 100vh;
   padding: 90px 0;
 }
-
-.footerInquiry {
-  display: flex;
-  gap: 8px;
-  color: var(--label-neutral);
-}
-
-.footerInquiry a {
-  border-bottom: 1px solid var(--label-strong);
-  color: var(--label-strong);
-}
