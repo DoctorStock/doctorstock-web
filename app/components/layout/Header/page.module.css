@@ -11,6 +11,7 @@
   align-items: center;
   gap: 8px; /* 아이콘과 텍스트 사이 간격 */
   text-decoration: none; /* 링크 밑줄 제거 */
+  cursor: pointer; /* 커서 모양 */
 }
 
 .logoIcon {
