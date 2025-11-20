@@ -44,7 +44,7 @@
 }
 
 .logoutButton {
-  padding: 6px 16px;
+  padding: 8px 16px;
   background-color: transparent;
   border: none;
   border-radius: var(--radius-md);
@@ -57,5 +57,5 @@
 }
 
 .logoutButton:hover {
-  background-color: var(--bg-normal-normal-10);
+  background-color: var(--bg-normal-normal-10); 
 }
