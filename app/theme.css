@@ -20,6 +20,7 @@
        Background Colors
        ============================================ */
   --bg-normal-normal: #ffffff;
+  --bg-normal-normal-10: rgba(255, 255, 255, 0.1);
   --bg-normal-alternative: #f7f7f8;
   --bg-elevated-normal: #ffffff;
   --bg-elevated-alternative: #f7f7f8;
@@ -146,5 +147,4 @@
        Legacy/Compatibility (기존 사용 중인 변수)
        ============================================ */
   --color-header-bg: #121826;
-  --color-text-primary: var(--label-normal);
 }

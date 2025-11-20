@@ -4,6 +4,7 @@
   background-color: var(--color-header-bg);
   display: flex;
   align-items: center;
+  justify-content: space-between; /* 왼쪽, 오른쪽 */
 }
 
 .logo {
@@ -11,7 +12,7 @@
   align-items: center;
   gap: 8px; /* 아이콘과 텍스트 사이 간격 */
   text-decoration: none; /* 링크 밑줄 제거 */
-  cursor: pointer; /* 커서 모양 */
+  cursor: pointer;
 }
 
 .logoIcon {
@@ -19,8 +20,42 @@
 }
 
 .logoText {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
   color: var(--static-white);
   font-family: var(--font-family);
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notificationButton {
+  background: none; /* 배경 제거 */
+  border: none;
+  transition: opacity 0.2s; /* 호버 효과 */
+  cursor: pointer;
+}
+
+.notificationButton:hover {
+  opacity: 0.8;
+}
+
+.logoutButton {
+  padding: 6px 16px;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--interaction-inactive);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: var(--bg-normal-normal-10);
 }
