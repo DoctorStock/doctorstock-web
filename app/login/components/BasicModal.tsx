@@ -1,5 +1,4 @@
-import { on } from "events";
-import { defaultOverrides } from "next/dist/server/require-hook";
+import Portal from "./Portal";
 
 interface BasicModalProps {
   isOpen: boolean;
@@ -15,11 +14,13 @@ export default function BasicModal({
   if (!isOpen) return null;
 
   return (
-    <div className="modalOverlay">
-      <div className="modalBox">
-        <p>{message}</p>
-        <button onClick={onClose}>확인</button>
+    <Portal>
+      <div className="modalOverlay">
+        <div className="modalBox">
+          <p>{message}</p>
+          <button onClick={onClose}>확인</button>
+        </div>
       </div>
-    </div>
+    </Portal>
   );
 }
