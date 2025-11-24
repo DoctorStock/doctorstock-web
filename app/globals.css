@@ -66,13 +66,8 @@ select {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
-}
-
-input,
-textarea,
-select {
   border: none;
-  outline: initial;
+  outline: none;
 }
 
 textarea {

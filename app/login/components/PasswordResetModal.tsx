@@ -9,32 +9,50 @@ interface PasswordResetModalProps {
   onSuccess: (userId: string) => void;
 }
 
+type FormData = {
+  userId: string;
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
+const INITIAL_FORM_DATA: FormData = {
+  userId: "",
+  currentPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+};
+
 export default function BasicModal({
   isOpen,
   onClose,
   onSuccess,
 }: PasswordResetModalProps) {
-  const [userId, setUserId] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
 
-  const [errors, setErrors] = useState({
-    userId: "",
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+  const [isCurrentPasswordVisible, setIsCurrentPasswordVisible] =
+    useState(false);
+  const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
+
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  //FormData key를 이용하여 각 key에 해당하는 함수를 만들고, 필드의 value 업데이트
+  const handleChange =
+    (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
+    };
 
   //버튼 활성화를 위한 폼 유효성 체크
-  const isFormValid =
-    userId.trim() !== "" &&
-    currentPassword.trim() !== "" &&
-    newPassword.trim() !== "" &&
-    confirmPassword.trim() !== "";
+  const isFormValid = (formData: FormData): boolean => {
+    return Object.values(formData).every((value) => value.trim() !== "");
+  };
 
   //비밀번호 유효성 검사
   const validatePassword = (password: string): boolean => {
@@ -44,35 +62,32 @@ export default function BasicModal({
     return password.length >= 8 && hasLetter && hasNumber && hasSpecial;
   };
 
-  const isMatched = confirmPassword === newPassword && confirmPassword !== "";
+  const isMatched =
+    formData.confirmPassword === formData.newPassword &&
+    formData.confirmPassword !== "";
   let confirmMessage = "";
 
-  if (confirmPassword === "") {
+  if (formData.confirmPassword === "") {
     confirmMessage = "";
-  } else if (confirmPassword === newPassword) {
+  } else if (formData.confirmPassword === formData.newPassword) {
     confirmMessage = "비밀번호가 일치합니다.";
   } else {
-    confirmMessage = "비밀번호가 불일치합니다다다.";
+    confirmMessage = "비밀번호가 불일치합니다.";
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newErrors = {
-      userId: "",
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    };
+    const newErrors: FormErrors = {};
 
-    if (!validatePassword(newPassword)) {
+    if (!validatePassword(formData.newPassword)) {
       newErrors.newPassword =
         "영문, 숫자, 특수문자를 포함하여 8자 이상 입력해 주세요.";
       setErrors(newErrors);
       return;
     }
 
-    if (newPassword === currentPassword) {
+    if (formData.newPassword === formData.currentPassword) {
       newErrors.newPassword =
         "현재 비밀번호와 동일합니다. 다른 비밀번호를 사용해 주세요.";
       setErrors(newErrors);
@@ -92,16 +107,8 @@ export default function BasicModal({
   };
 
   const handleClose = () => {
-    setUserId("");
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
-    setErrors({
-      userId: "",
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
+    setFormData(INITIAL_FORM_DATA);
+    setErrors({});
     onClose();
   };
 
@@ -127,17 +134,17 @@ export default function BasicModal({
                 <input
                   type="text"
                   id="modal-userId"
-                  value={userId}
-                  onChange={(e) => {
-                    setUserId(e.target.value);
-                  }}
+                  value={formData.userId}
+                  onChange={handleChange("userId")}
                   placeholder="아이디를 입력해 주세요."
                   className={clsx(errors.userId && "input-error")}
                 />
-                {userId && (
+                {formData.userId && (
                   <button
                     type="button"
-                    onClick={() => setUserId("")}
+                    onClick={() =>
+                      setFormData((prev) => ({ ...prev, userId: "" }))
+                    }
                     aria-label="창 비우기"
                   >
                     <img src="/assets/input-reset.png" alt="창 비우기" />
@@ -147,25 +154,25 @@ export default function BasicModal({
               <div className="inputAssets">
                 <label htmlFor="modal-currentPassword">현재 비밀번호</label>
                 <input
-                  type={showCurrentPassword ? "text" : "password"}
+                  type={isCurrentPasswordVisible ? "text" : "password"}
                   id="modal-currentPassword"
-                  value={currentPassword}
-                  onChange={(e) => {
-                    setCurrentPassword(e.target.value);
-                  }}
+                  value={formData.currentPassword}
+                  onChange={handleChange("currentPassword")}
                   placeholder="사용중인 비밀번호를 입력해 주세요."
                   className={clsx(errors.currentPassword && "input-error")}
                 />
                 <button
                   type="button"
-                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  onClick={() =>
+                    setIsCurrentPasswordVisible(!isCurrentPasswordVisible)
+                  }
                   aria-label={
-                    showCurrentPassword
+                    isCurrentPasswordVisible
                       ? "현재 비밀번호 숨기기"
                       : "현재 비밀번호 보이기"
                   }
                 >
-                  {showCurrentPassword ? (
+                  {isCurrentPasswordVisible ? (
                     <img src="/assets/shown.png" alt="현재 비밀번호 보이기" />
                   ) : (
                     <img src="/assets/unshown.png" alt="현재 비밀번호 숨기기" />
@@ -175,26 +182,26 @@ export default function BasicModal({
               <div className="inputAssets">
                 <label htmlFor="modal-newPassword">새 비밀번호</label>
                 <input
-                  type={showNewPassword ? "text" : "password"}
+                  type={isNewPasswordVisible ? "text" : "password"}
                   id="modal-newPassword"
-                  value={newPassword}
+                  value={formData.newPassword}
                   onChange={(e) => {
-                    setNewPassword(e.target.value);
-                    setErrors({ ...errors, newPassword: "" });
+                    handleChange("newPassword")(e);
+                    setErrors((prev) => ({ ...prev, newPassword: "" }));
                   }}
                   placeholder="영문, 숫자, 특수문자 포함 8자 이상"
                   className={clsx(errors.newPassword && "input-error")}
                 />
                 <button
                   type="button"
-                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  onClick={() => setIsNewPasswordVisible(!isNewPasswordVisible)}
                   aria-label={
-                    showNewPassword
+                    isNewPasswordVisible
                       ? "새 비밀번호 숨기기"
                       : "새 비밀번호 보이기"
                   }
                 >
-                  {showNewPassword ? (
+                  {isNewPasswordVisible ? (
                     <img src="/assets/shown.png" alt="새 비밀번호 보이기" />
                   ) : (
                     <img src="/assets/unshown.png" alt="새 비밀번호 숨기기" />
@@ -212,28 +219,31 @@ export default function BasicModal({
               <div className="inputAssets">
                 <label htmlFor="modal-confirmPassword">새 비밀번호 확인</label>
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={isConfirmPasswordVisible ? "text" : "password"}
                   id="modal-confirmPassword"
-                  value={confirmPassword}
+                  value={formData.confirmPassword}
                   onChange={(e) => {
-                    setConfirmPassword(e.target.value);
+                    handleChange("confirmPassword")(e);
                     setErrors({ ...errors, confirmPassword: "" });
                   }}
                   placeholder="새 비밀번호를 한번 더 입력해주세요."
                   className={clsx({
-                    "input-error": !isMatched && confirmPassword !== "",
+                    "input-error":
+                      !isMatched && formData.confirmPassword !== "",
                   })}
                 />
                 <button
                   type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  onClick={() =>
+                    setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
+                  }
                   aria-label={
-                    showConfirmPassword
+                    isConfirmPasswordVisible
                       ? "새 비밀번호 확인 보이기"
                       : "새 비밀번호 확인 숨기기"
                   }
                 >
-                  {showConfirmPassword ? (
+                  {isConfirmPasswordVisible ? (
                     <img
                       src="/assets/shown.png"
                       alt="새 비밀번호 확인 보이기"
