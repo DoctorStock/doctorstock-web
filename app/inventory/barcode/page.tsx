@@ -2,6 +2,7 @@
 
 // 메인 페이지
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import BarcodeScanner from './Barcode/page';
 import PurchaseForm from './Purchase/page';
 import { PurchaseItem, FormData, initialPurchaseItems, initialFormData } from './data';
@@ -9,6 +10,8 @@ import styles from './page.module.css';
 
 // 바코드 스캔 및 구매 요청 페이지 컴포넌트
 export default function BarcodePage() {
+  const router = useRouter();
+  
   // 구매 아이템 목록 상태 관리
   const [purchaseItems, setPurchaseItems] = useState<PurchaseItem[]>(initialPurchaseItems);
   // 구매 요청 폼 데이터 상태 관리
@@ -39,7 +42,7 @@ export default function BarcodePage() {
 
   // 취소 버튼
   const handleCancel = () => {
-    window.history.back();
+    router.back();
   };
 
   return (
