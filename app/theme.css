@@ -118,7 +118,8 @@
   /* ============================================
        Typography
        ============================================ */
-  --font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+  /* next/font로 생성된 --font-pretendard 변수를 사용, fallback은 시스템 폰트 */
+  --font-family: var(--font-pretendard, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif);
   
   /* Font Size */
   --font-size-xs: 12px;

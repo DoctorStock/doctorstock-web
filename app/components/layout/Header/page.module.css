@@ -23,7 +23,6 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   color: var(--static-white);
-  font-family: var(--font-family);
 }
 
 .rightSection {
@@ -42,7 +41,6 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--gray-g100);
-  font-family: var(--font-family);
 }
 
 .userNameGroup {
@@ -55,14 +53,12 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   color: var(--gray-g100);
-  font-family: var(--font-family);
 }
 
 .userRole {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--gray-g100);
-  font-family: var(--font-family);
 }
 
 .notificationButton {
@@ -82,7 +78,6 @@
   border: none;
   border-radius: var(--radius-md);
   color: var(--interaction-inactive);
-  font-family: var(--font-family);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   transition: background-color 0.2s;
