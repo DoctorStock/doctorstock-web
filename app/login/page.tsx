@@ -5,6 +5,7 @@ import BasicModal from "./components/BasicModal";
 import PasswordResetModal from "./components/PasswordResetModal";
 import styles from "./page.module.css";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
@@ -33,11 +34,13 @@ export default function Login() {
     <div className={styles.loginWrap}>
       <div className={styles.loginFormWrap}>
         <h1>
-          <img
+          <Image
             src="/assets/logo.svg"
             alt="닥터스톡로고"
             className={styles.logo}
-          />
+            width={198}
+            height={32}
+          ></Image>
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="inputAssets">

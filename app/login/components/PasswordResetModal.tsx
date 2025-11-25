@@ -16,6 +16,12 @@ type FormData = {
   confirmPassword: string;
 };
 
+type PasswordVisibility = {
+  current: boolean;
+  new: boolean;
+  confirm: boolean;
+};
+
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
 const INITIAL_FORM_DATA: FormData = {
@@ -25,18 +31,21 @@ const INITIAL_FORM_DATA: FormData = {
   confirmPassword: "",
 };
 
+const INITIAL_PASSWORD_VISIBILITY: PasswordVisibility = {
+  current: false,
+  new: false,
+  confirm: false,
+};
+
 export default function BasicModal({
   isOpen,
   onClose,
   onSuccess,
 }: PasswordResetModalProps) {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
-
-  const [isCurrentPasswordVisible, setIsCurrentPasswordVisible] =
-    useState(false);
-  const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-    useState(false);
+  const [visibility, setVisibility] = useState<PasswordVisibility>(
+    INITIAL_PASSWORD_VISIBILITY
+  );
 
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -48,6 +57,13 @@ export default function BasicModal({
         [field]: e.target.value,
       }));
     };
+
+  const toggleVisibility = (field: keyof PasswordVisibility) => {
+    setVisibility((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
 
   //버튼 활성화를 위한 폼 유효성 체크
   const isFormValid = (formData: FormData): boolean => {
@@ -101,6 +117,8 @@ export default function BasicModal({
     }
 
     try {
+      onSuccess(formData.userId);
+      handleClose();
     } catch (error) {
       console.error("비밀번호 재설정 실패:", error);
     }
@@ -154,7 +172,7 @@ export default function BasicModal({
               <div className="inputAssets">
                 <label htmlFor="modal-currentPassword">현재 비밀번호</label>
                 <input
-                  type={isCurrentPasswordVisible ? "text" : "password"}
+                  type={visibility.current ? "text" : "password"}
                   id="modal-currentPassword"
                   value={formData.currentPassword}
                   onChange={handleChange("currentPassword")}
@@ -163,16 +181,14 @@ export default function BasicModal({
                 />
                 <button
                   type="button"
-                  onClick={() =>
-                    setIsCurrentPasswordVisible(!isCurrentPasswordVisible)
-                  }
+                  onClick={() => toggleVisibility("current")}
                   aria-label={
-                    isCurrentPasswordVisible
+                    visibility.current
                       ? "현재 비밀번호 숨기기"
                       : "현재 비밀번호 보이기"
                   }
                 >
-                  {isCurrentPasswordVisible ? (
+                  {visibility.current ? (
                     <img src="/assets/shown.png" alt="현재 비밀번호 보이기" />
                   ) : (
                     <img src="/assets/unshown.png" alt="현재 비밀번호 숨기기" />
@@ -182,7 +198,7 @@ export default function BasicModal({
               <div className="inputAssets">
                 <label htmlFor="modal-newPassword">새 비밀번호</label>
                 <input
-                  type={isNewPasswordVisible ? "text" : "password"}
+                  type={visibility.new ? "text" : "password"}
                   id="modal-newPassword"
                   value={formData.newPassword}
                   onChange={(e) => {
@@ -194,14 +210,12 @@ export default function BasicModal({
                 />
                 <button
                   type="button"
-                  onClick={() => setIsNewPasswordVisible(!isNewPasswordVisible)}
+                  onClick={() => toggleVisibility("new")}
                   aria-label={
-                    isNewPasswordVisible
-                      ? "새 비밀번호 숨기기"
-                      : "새 비밀번호 보이기"
+                    visibility.new ? "새 비밀번호 숨기기" : "새 비밀번호 보이기"
                   }
                 >
-                  {isNewPasswordVisible ? (
+                  {visibility.new ? (
                     <img src="/assets/shown.png" alt="새 비밀번호 보이기" />
                   ) : (
                     <img src="/assets/unshown.png" alt="새 비밀번호 숨기기" />
@@ -219,7 +233,7 @@ export default function BasicModal({
               <div className="inputAssets">
                 <label htmlFor="modal-confirmPassword">새 비밀번호 확인</label>
                 <input
-                  type={isConfirmPasswordVisible ? "text" : "password"}
+                  type={visibility.confirm ? "text" : "password"}
                   id="modal-confirmPassword"
                   value={formData.confirmPassword}
                   onChange={(e) => {
@@ -234,16 +248,14 @@ export default function BasicModal({
                 />
                 <button
                   type="button"
-                  onClick={() =>
-                    setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
-                  }
+                  onClick={() => toggleVisibility("confirm")}
                   aria-label={
-                    isConfirmPasswordVisible
+                    visibility.confirm
                       ? "새 비밀번호 확인 보이기"
                       : "새 비밀번호 확인 숨기기"
                   }
                 >
-                  {isConfirmPasswordVisible ? (
+                  {visibility.confirm ? (
                     <img
                       src="/assets/shown.png"
                       alt="새 비밀번호 확인 보이기"

@@ -1,5 +1,5 @@
 .btnClose {
-  background: url(/assets/close.png) no-repeat 50% 50% / cover;
+  background: url(/assets/close.svg) no-repeat 50% 50% / cover;
   width: 24px;
   height: 24px;
 }
@@ -35,7 +35,7 @@
 .modalHeader .btnClose {
   position: absolute;
   right: 16px;
-  top: 18px;
+  top: 17px;
 }
 
 .modalHeader h3 {
