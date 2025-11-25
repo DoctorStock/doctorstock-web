@@ -21,10 +21,7 @@
   transition: background-color 0.2s;
 }
 
-.menuItem:hover {
-  background-color: var(--hover-normal);
-}
-
+.menuItem:hover,
 .menuItem.active {
   background-color: var(--hover-normal);
   color: var(--gray-g900);
