@@ -74,6 +74,16 @@ const menuItems: MenuSection[] = [
       },
     ],
   },
+  {
+    items: [
+      {
+        href: '/settings',
+        icon: '/assets/settings.svg',
+        alt: '설정',
+        label: '설정',
+      },
+    ],
+  },
 ];
 
 function MenuItemComponent({ item, pathname }: { item: MenuItem; pathname: string }) {
@@ -98,26 +108,43 @@ function MenuItemComponent({ item, pathname }: { item: MenuItem; pathname: strin
 
 export default function Sidebar() {
   const pathname = usePathname();
+  
+  // 설정 메뉴를 분리
+  const mainMenuItems = menuItems.slice(0, -1);
+  const settingsItem = menuItems[menuItems.length - 1];
 
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.nav}>
-        {menuItems.map((section, sectionIndex) => (
-          <div key={section.title || `section-${sectionIndex}`} className={section.title ? styles.section : ''}>
-            {section.title && (
-              <h3 className={styles.sectionTitle}>{section.title}</h3>
-            )}
-            <div className={section.title ? styles.menuList : ''}>
-              {section.items.map((item) => (
-                <MenuItemComponent
-                  key={item.href}
-                  item={item}
-                  pathname={pathname}
-                />
-              ))}
+        <div className={styles.mainMenu}>
+          {mainMenuItems.map((section, sectionIndex) => (
+            <div key={section.title || `section-${sectionIndex}`} className={section.title ? styles.section : ''}>
+              {section.title && (
+                <h3 className={styles.sectionTitle}>{section.title}</h3>
+              )}
+              <div className={section.title ? styles.menuList : ''}>
+                {section.items.map((item) => (
+                  <MenuItemComponent
+                    key={item.href}
+                    item={item}
+                    pathname={pathname}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        
+        {/* 설정 메뉴 - 화면 맨 아래 */}
+        <div className={styles.settingsSection}>
+          {settingsItem.items.map((item) => (
+            <MenuItemComponent
+              key={item.href}
+              item={item}
+              pathname={pathname}
+            />
+          ))}
+        </div>
       </nav>
     </aside>
   );

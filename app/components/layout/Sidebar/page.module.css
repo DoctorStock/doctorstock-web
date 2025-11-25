@@ -1,11 +1,18 @@
 .sidebar {
   width: 220px;
-  height: 100vh;
-  background-color: var(--bg-normal-alternative); /* 임시 : 사이드바 배경색 */
+  height: 100%;
+  background-color: var(--bg-normal-alternative); /* TODO : 사이드바 배경색  */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .nav {
   padding: var(--spacing-20) var(--spacing-sm) 0 var(--spacing-20); /* top right bottom left */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
 .menuItem {
@@ -40,8 +47,14 @@
   padding: 0 var(--spacing-sm);
 }
 
-.menuList {
-  display: flex;
-  flex-direction: column;
+
+.mainMenu {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
+.settingsSection {
+  flex-shrink: 0; /* 축소 방지 */
+  padding-bottom: var(--spacing-lg);
+}
