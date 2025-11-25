@@ -31,3 +31,20 @@
   font-weight: var(--font-weight-bold);
 }
 
+.section {
+  margin-top: var(--spacing-lg);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-g600);
+  margin-bottom: var(--spacing-xs);
+  padding: 0 var(--spacing-sm);
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+}
+
