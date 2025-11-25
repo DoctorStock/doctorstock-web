@@ -32,25 +32,25 @@ const menuItems: MenuSection[] = [
     title: '재고 관리',
     items: [
       {
-        href: '/inventory/status',
+        href: '/status',
         icon: '/assets/box.svg',
         alt: '재고 현황',
         label: '재고 현황',
       },
       {
-        href: '/inventory/purchase',
+        href: '/purchase',
         icon: '/assets/cart.svg',
         alt: '입고 및 구매',
         label: '입고 및 구매',
       },
       {
-        href: '/inventory/usage',
+        href: '/usage',
         icon: '/assets/check.svg',
         alt: '사용',
         label: '사용',
       },
       {
-        href: '/inventory/history',
+        href: '/history',
         icon: '/assets/list.svg',
         alt: '이력관리',
         label: '이력관리',
