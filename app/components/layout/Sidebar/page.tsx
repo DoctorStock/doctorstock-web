@@ -21,7 +21,7 @@ const menuItems: MenuSection[] = [
   {
     items: [
       {
-        href: '/',
+        href: '/home',
         icon: '/assets/home.svg',
         alt: '홈',
         label: '홈',

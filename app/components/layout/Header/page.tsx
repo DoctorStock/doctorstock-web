@@ -27,7 +27,7 @@ export default function Header({
 
   return (
     <div className={styles.header}>
-      <Link href="/" className={styles.logo}>
+      <Link href="/home" className={styles.logo}>
         <Image
           src="/assets/logo.svg"
           alt="Doctor Stock"

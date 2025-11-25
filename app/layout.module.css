@@ -3,6 +3,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column; /* 세로 방향 */
+  overflow: hidden;
 }
 
 .content {

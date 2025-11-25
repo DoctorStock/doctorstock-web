@@ -1,4 +1,4 @@
-export default function AnalysisPage() {
+export default function Analysis() {
   return (
     <div>
       <h1>분석</h1>
