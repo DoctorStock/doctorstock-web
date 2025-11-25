@@ -4,3 +4,30 @@
   background-color: var(--bg-normal-alternative); /* 임시 : 사이드바 배경색 */
 }
 
+.nav {
+  padding: var(--spacing-20) var(--spacing-sm) 0 var(--spacing-20); /* top right bottom left */
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm); 
+  padding: var(--spacing-10) var(--spacing-sm);
+  color: var(--gray-g700); 
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border-radius: var(--radius-sm-md);
+  transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+  background-color: var(--hover-normal);
+}
+
+.menuItem.active {
+  background-color: var(--hover-normal);
+  color: var(--gray-g900);
+  font-weight: var(--font-weight-bold);
+}
+
