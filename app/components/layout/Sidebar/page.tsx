@@ -21,7 +21,7 @@ const menuItems: MenuSection[] = [
   {
     items: [
       {
-        href: '/home',
+        href: '/page/home',
         icon: '/assets/home.svg',
         alt: '홈',
         label: '홈',
@@ -32,25 +32,25 @@ const menuItems: MenuSection[] = [
     title: '재고 관리',
     items: [
       {
-        href: '/status',
+        href: '/page/status',
         icon: '/assets/box.svg',
         alt: '재고 현황',
         label: '재고 현황',
       },
       {
-        href: '/purchase',
+        href: '/page/purchase',
         icon: '/assets/cart.svg',
         alt: '입고 및 구매',
         label: '입고 및 구매',
       },
       {
-        href: '/usage',
+        href: '/page/usage',
         icon: '/assets/check.svg',
         alt: '사용',
         label: '사용',
       },
       {
-        href: '/history',
+        href: '/page/history',
         icon: '/assets/list.svg',
         alt: '이력관리',
         label: '이력관리',
@@ -61,13 +61,13 @@ const menuItems: MenuSection[] = [
     title: '부가 기능',
     items: [
       {
-        href: '/analysis',
+        href: '/page/analysis',
         icon: '/assets/chart.svg',
         alt: '분석',
         label: '분석',
       },
       {
-        href: '/board',
+        href: '/page/board',
         icon: '/assets/notice.svg',
         alt: '게시판',
         label: '게시판',
@@ -77,7 +77,7 @@ const menuItems: MenuSection[] = [
   {
     items: [
       {
-        href: '/settings',
+        href: '/page/settings',
         icon: '/assets/settings.svg',
         alt: '설정',
         label: '설정',
