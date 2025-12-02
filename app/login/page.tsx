@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [visibility, setVisibility] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
   const [saveId, setSaveId] = useState(false);
   const [isPasswordResetModalOpen, setIsPasswordResetModalOpen] =
@@ -60,7 +60,12 @@ export default function Login() {
                 onClick={() => setUserId("")}
                 aria-label="창 비우기"
               >
-                <img src="/assets/input-reset.png" alt="창 비우기" />
+                <Image
+                  src="/assets/input-reset.svg"
+                  alt="닥터스톡로고"
+                  width={24}
+                  height={24}
+                ></Image>
               </button>
             )}
           </div>
@@ -68,7 +73,7 @@ export default function Login() {
             <label htmlFor="userPassword">비밀번호</label>
             <input
               id="userPassword"
-              type={showPassword ? "text" : "password"}
+              type={visibility ? "text" : "password"}
               value={userPassword}
               onChange={(e) => {
                 setUserPassword(e.target.value);
@@ -77,13 +82,23 @@ export default function Login() {
             />
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보이기"}
+              onClick={() => setVisibility(!visibility)}
+              aria-label={visibility ? "비밀번호 숨기기" : "비밀번호 보이기"}
             >
-              {showPassword ? (
-                <img src="/assets/shown.png" alt="비밀번호 보이기" />
+              {visibility ? (
+                <Image
+                  src="/assets/shown.svg"
+                  alt="비밀번호 보이기"
+                  width={24}
+                  height={24}
+                ></Image>
               ) : (
-                <img src="/assets/unshown.png" alt="비밀번호 숨기기" />
+                <Image
+                  src="/assets/unshown.svg"
+                  alt="비밀번호 숨기기"
+                  width={24}
+                  height={24}
+                ></Image>
               )}
             </button>
           </div>

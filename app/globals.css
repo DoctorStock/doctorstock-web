@@ -212,8 +212,7 @@ table {
   left: 2.8px;
   width: 10.73px;
   height: 7.73px;
-  background-image: url(/assets/custom-check.png);
-  background-size: contain;
+  background-image: url(/assets/custom-check.svg);
   background-repeat: no-repeat;
   background-position: center;
 }

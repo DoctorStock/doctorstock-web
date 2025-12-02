@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./loginComponents.module.css";
 import clsx from "clsx";
 import Portal from "./Portal";
+import Image from "next/image";
 
 interface PasswordResetModalProps {
   isOpen: boolean;
@@ -189,9 +190,19 @@ export default function BasicModal({
                   }
                 >
                   {visibility.current ? (
-                    <img src="/assets/shown.png" alt="현재 비밀번호 보이기" />
+                    <Image
+                      src="/assets/shown.svg"
+                      alt="현재 비밀번호 보이기"
+                      width={24}
+                      height={24}
+                    ></Image>
                   ) : (
-                    <img src="/assets/unshown.png" alt="현재 비밀번호 숨기기" />
+                    <Image
+                      src="/assets/unshown.svg"
+                      alt="현재 비밀번호 숨기기"
+                      width={24}
+                      height={24}
+                    ></Image>
                   )}
                 </button>
               </div>
@@ -216,9 +227,19 @@ export default function BasicModal({
                   }
                 >
                   {visibility.new ? (
-                    <img src="/assets/shown.png" alt="새 비밀번호 보이기" />
+                    <Image
+                      src="/assets/shown.svg"
+                      alt="새 비밀번호 보이기"
+                      width={24}
+                      height={24}
+                    ></Image>
                   ) : (
-                    <img src="/assets/unshown.png" alt="새 비밀번호 숨기기" />
+                    <Image
+                      src="/assets/unshown.svg"
+                      alt="새 비밀번호 숨기기"
+                      width={24}
+                      height={24}
+                    ></Image>
                   )}
                 </button>
                 <p
@@ -256,15 +277,19 @@ export default function BasicModal({
                   }
                 >
                   {visibility.confirm ? (
-                    <img
-                      src="/assets/shown.png"
+                    <Image
+                      src="/assets/shown.svg"
                       alt="새 비밀번호 확인 보이기"
-                    />
+                      width={24}
+                      height={24}
+                    ></Image>
                   ) : (
-                    <img
-                      src="/assets/unshown.png"
+                    <Image
+                      src="/assets/unshown.svg"
                       alt="새 비밀번호 확인 숨기기"
-                    />
+                      width={24}
+                      height={24}
+                    ></Image>
                   )}
                 </button>
                 <p
