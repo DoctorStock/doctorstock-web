@@ -74,17 +74,18 @@ const menuSections: MenuSection[] = [
       },
     ],
   },
-  {
-    items: [
-      {
-        href: '/page/settings',
-        icon: '/assets/settings.svg',
-        alt: '설정',
-        label: '설정',
-      },
-    ],
-  },
 ];
+
+const settingsSection: MenuSection = {
+  items: [
+    {
+      href: '/page/settings',
+      icon: '/assets/settings.svg',
+      alt: '설정',
+      label: '설정',
+    },
+  ],
+};
 
 function MenuItem({ item, pathname }: { item: MenuItem; pathname: string }) {
   const isActive = pathname === item.href;
@@ -108,16 +109,12 @@ function MenuItem({ item, pathname }: { item: MenuItem; pathname: string }) {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  
-  // 설정 메뉴를 분리
-  const mainMenuItems = menuSections.slice(0, -1);
-  const settingsItem = menuSections[menuSections.length - 1];
 
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.nav}>
         <div className={styles.mainMenu}>
-          {mainMenuItems.map((section, sectionIndex) => (
+          {menuSections.map((section, sectionIndex) => (
             <div key={section.title || `section-${sectionIndex}`} className={section.title ? styles.section : ''}>
               {section.title && (
                 <h3 className={styles.sectionTitle}>{section.title}</h3>
@@ -137,7 +134,7 @@ export default function Sidebar() {
         
         {/* 설정 메뉴 - 화면 맨 아래 */}
         <div className={styles.settingsSection}>
-          {settingsItem.items.map((item) => (
+          {settingsSection.items.map((item) => (
             <MenuItem
               key={item.href}
               item={item}
