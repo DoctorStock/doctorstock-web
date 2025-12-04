@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BasicModal from "./components/BasicModal";
 import PasswordResetModal from "./components/PasswordResetModal";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { getSavedUserId, removeSavedId, saveUserId } from "../lib/auth";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
@@ -18,7 +19,42 @@ export default function Login() {
   const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
   const [basicModalMessage, setBasicModalMessage] = useState("");
 
-  const handleSubmit = () => {};
+  //컴포넌트 마운트시, localstorage에 savedUserId가 있다면 불러오기
+  useEffect(() => {
+    const savedId = getSavedUserId();
+    if (savedId) {
+      setUserId(savedId);
+      setSaveId(true);
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("api/auto/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userId,
+          password: userPassword,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("로그인 실패");
+      }
+
+      if (saveId) {
+        saveUserId(userId);
+      } else {
+        removeSavedId();
+      }
+    } catch (error) {
+      console.error("로그인 에러:", error);
+      alert("로그인 실패!");
+    }
+  };
 
   //버튼 활성화를 위한 폼 유효성 체크
   const isFormValid = userId.trim() !== "" && userPassword.trim() !== "";
