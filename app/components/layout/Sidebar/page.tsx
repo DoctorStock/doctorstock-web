@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 import styles from './page.module.css';
 
 interface MenuItem {
@@ -93,7 +94,7 @@ function MenuItem({ item, pathname }: { item: MenuItem; pathname: string }) {
   return (
     <Link 
       href={item.href} 
-      className={`${styles.menuItem} ${isActive ? styles.active : ''}`}
+      className={clsx(styles.menuItem, isActive && styles.active)}
     >
       <Image
         src={item.icon}
@@ -115,11 +116,11 @@ export default function Sidebar() {
       <nav className={styles.nav}>
         <div className={styles.mainMenu}>
           {menuSections.map((section, sectionIndex) => (
-            <div key={section.title || `section-${sectionIndex}`} className={section.title ? styles.section : ''}>
+            <div key={section.title || `section-${sectionIndex}`} className={clsx(section.title && styles.section)}>
               {section.title && (
                 <h3 className={styles.sectionTitle}>{section.title}</h3>
               )}
-              <div className={section.title ? styles.menuList : ''}>
+              <div className={clsx(section.title && styles.menuList)}>
                 {section.items.map((item) => (
                   <MenuItem
                     key={item.href}
