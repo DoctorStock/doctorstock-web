@@ -86,7 +86,7 @@ const menuSections: MenuSection[] = [
   },
 ];
 
-function MenuItemComponent({ item, pathname }: { item: MenuItem; pathname: string }) {
+function MenuItem({ item, pathname }: { item: MenuItem; pathname: string }) {
   const isActive = pathname === item.href;
 
   return (
@@ -124,7 +124,7 @@ export default function Sidebar() {
               )}
               <div className={section.title ? styles.menuList : ''}>
                 {section.items.map((item) => (
-                  <MenuItemComponent
+                  <MenuItem
                     key={item.href}
                     item={item}
                     pathname={pathname}
@@ -138,7 +138,7 @@ export default function Sidebar() {
         {/* 설정 메뉴 - 화면 맨 아래 */}
         <div className={styles.settingsSection}>
           {settingsItem.items.map((item) => (
-            <MenuItemComponent
+            <MenuItem
               key={item.href}
               item={item}
               pathname={pathname}
