@@ -17,7 +17,7 @@ interface MenuSection {
   items: MenuItem[];
 }
 
-const menuItems: MenuSection[] = [
+const menuSections: MenuSection[] = [
   {
     items: [
       {
@@ -110,8 +110,8 @@ export default function Sidebar() {
   const pathname = usePathname();
   
   // 설정 메뉴를 분리
-  const mainMenuItems = menuItems.slice(0, -1);
-  const settingsItem = menuItems[menuItems.length - 1];
+  const mainMenuItems = menuSections.slice(0, -1);
+  const settingsItem = menuSections[menuSections.length - 1];
 
   return (
     <aside className={styles.sidebar}>
