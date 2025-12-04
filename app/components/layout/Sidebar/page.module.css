@@ -2,7 +2,6 @@
   width: 220px;
   height: 100%;
   background-color: var(--bg-normal-alternative); /* TODO : 사이드바 배경색  */
-  display: flex; /* 하단에 설정 메뉴를 위해 */
   overflow: hidden;
 }
 
@@ -10,7 +9,7 @@
   padding: var(--spacing-20) var(--spacing-sm) 0 var(--spacing-20); /* top right bottom left */
   display: flex;
   flex-direction: column;
-  flex: 1;
+  height: 100%;
   min-height: 0;
 }
 
