@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./theme.css";
-import Header from "./components/layout/Header/page";
-import Sidebar from "./components/layout/Sidebar/page";
+import Header from "./components/Header/page";
+import Sidebar from "./components/Sidebar/page";
 import styles from "./layout.module.css";
 
 // Pretendard 폰트 설정
