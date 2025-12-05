@@ -7,8 +7,10 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { getSavedUserId, removeSavedId, saveUserId } from "../lib/auth";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [visibility, setVisibility] = useState(false);
@@ -28,34 +30,6 @@ export default function Login() {
     }
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("api/auto/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: userId,
-          password: userPassword,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("로그인 실패");
-      }
-
-      if (saveId) {
-        saveUserId(userId);
-      } else {
-        removeSavedId();
-      }
-    } catch (error) {
-      console.error("로그인 에러:", error);
-      alert("로그인 실패!");
-    }
-  };
-
   //버튼 활성화를 위한 폼 유효성 체크
   const isFormValid = userId.trim() !== "" && userPassword.trim() !== "";
 
@@ -64,6 +38,46 @@ export default function Login() {
       `아이디 ${userId}의 비밀번호를 변경하였습니다. 새로운 비밀번호로 로그인 해주세요.`
     );
     setIsBasicModalOpen(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userId,
+          password: userPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      //로그인 실패 시
+      if (!response.ok || !data.success) {
+        alert(data.error || "로그인 실패!");
+        return;
+      }
+
+      // 로그인 성공 시 토큰 저장
+      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("refreshToken", data.refeshToken);
+
+      //아이디 저장 옵션
+      if (saveId) {
+        saveUserId(userId);
+      } else {
+        removeSavedId();
+      }
+
+      //로그인 성공 이후 메인페이지로 이동
+      router.push("/");
+    } catch (error) {
+      console.error("로그인 에러:", error);
+      alert("서버 오류");
+    }
   };
 
   return (
