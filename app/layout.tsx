@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./theme.css";
-import Header from "./components/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
-import styles from "./layout.module.css";
+import LayoutProvider from "./providers/LayoutProvider";
 
 // Pretendard 폰트 설정
 const pretendard = localFont({
@@ -47,15 +45,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.variable}>
-        <div className={styles.page}>
-          <Header/>
-          <div className={styles.content}>
-            <Sidebar/>
-            <main className={styles.main}>
-              {children}
-            </main>
-          </div>
-        </div>
+        <LayoutProvider>
+          {children}
+        </LayoutProvider>
+        <div id="modal-root"></div>
       </body>
     </html>
   );
