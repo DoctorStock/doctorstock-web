@@ -20,6 +20,7 @@
        Background Colors
        ============================================ */
   --bg-normal-normal: #ffffff;
+  --bg-normal-normal-10: rgba(255, 255, 255, 0.1);
   --bg-normal-alternative: #f7f7f8;
   --bg-elevated-normal: #ffffff;
   --bg-elevated-alternative: #f7f7f8;
@@ -83,6 +84,7 @@
   --static-white: #ffffff;
   --static-black: #18181b;
 
+
   /* ============================================
        Fill Colors
        ============================================ */
@@ -116,8 +118,10 @@
   /* ============================================
        Typography
        ============================================ */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR",
-    sans-serif;
+  /* next/font로 생성된 --font-pretendard 변수를 사용, fallback은 시스템 폰트 */
+  --font-family: var(--font-pretendard, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif);
+  
+  /* Font Size */
   --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-base: 16px;
@@ -125,6 +129,12 @@
   --font-size-xl: 20px;
   --font-size-2xl: 24px;
   --font-size-3xl: 30px;
+  
+  /* Font Weight */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
   /* ============================================
        Border Radius
@@ -134,4 +144,11 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-full: 9999px;
+}
+
+  /* ============================================
+       Gray Colors
+       ============================================ */
+  --gray-g100: #f3f4f6;
+  --gray-g900: #121826;
 }
