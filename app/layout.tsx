@@ -45,6 +45,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={pretendard.variable}>
         {children}
+        <div id="modal-root"></div>
       </body>
     </html>
   );

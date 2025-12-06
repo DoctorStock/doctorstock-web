@@ -1,0 +1,49 @@
+.footerInquiry {
+  position: absolute;
+  bottom: 60px;
+  display: flex;
+  gap: 8px;
+  color: var(--label-neutral);
+}
+
+.footerInquiry a {
+  border-bottom: 1px solid var(--label-strong);
+  color: var(--label-strong);
+}
+
+.loginWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  margin: 0 auto 50px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.loginFormWrap {
+  min-width: 336px;
+}
+
+.loginSubmitBtn {
+  margin-top: 20px;
+}
+
+.loginCheckboxGroup {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  gap: 16px;
+}
+
+.passwordResetBtn {
+  color: var(--label-neutral);
+  text-align: center;
+  margin: 20px auto;
+  font-weight: 600;
+  width: 100%;
+}
