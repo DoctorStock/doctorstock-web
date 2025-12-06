@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './page.module.css';
+import styles from './Header.module.css';
 
 interface HeaderProps {
   hospitalName?: string;
@@ -27,7 +27,7 @@ export default function Header({
 
   return (
     <div className={styles.header}>
-      <Link href="/" className={styles.logo}>
+      <Link href="/pages/home" className={styles.logo}>
         <Image
           src="/assets/logo.svg"
           alt="Doctor Stock"
@@ -70,3 +70,4 @@ export default function Header({
     </div>
   );
 }
+

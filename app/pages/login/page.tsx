@@ -6,7 +6,7 @@ import PasswordResetModal from "./components/PasswordResetModal";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { getSavedUserId, removeSavedId, saveUserId } from "../lib/auth";
+import { getSavedUserId, removeSavedId, saveUserId } from "../../lib/auth";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
