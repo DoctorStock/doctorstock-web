@@ -83,14 +83,14 @@ export default function Login() {
   return (
     <div className={styles.loginWrap}>
       <div className={styles.loginFormWrap}>
-        <h1>
+        <h1 className={styles.logo}>
           <Image
             src="/assets/logo.svg"
             alt="닥터스톡로고"
-            className={styles.logo}
-            width={198}
+            width={32}
             height={32}
           ></Image>
+          <span>DoctorStock</span>
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="inputAssets">
@@ -112,7 +112,7 @@ export default function Login() {
               >
                 <Image
                   src="/assets/input-reset.svg"
-                  alt="닥터스톡로고"
+                  alt="창 비우기"
                   width={24}
                   height={24}
                 ></Image>

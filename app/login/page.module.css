@@ -19,6 +19,10 @@
 
 .logo {
   margin: 0 auto 50px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .loginFormWrap {

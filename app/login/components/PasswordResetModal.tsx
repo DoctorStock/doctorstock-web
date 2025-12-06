@@ -166,7 +166,12 @@ export default function BasicModal({
                     }
                     aria-label="창 비우기"
                   >
-                    <img src="/assets/input-reset.png" alt="창 비우기" />
+                    <Image
+                      src="/assets/input-reset.svg"
+                      alt="닥터스톡로고"
+                        width={24}
+                        height={24}
+                      ></Image>
                   </button>
                 )}
               </div>
