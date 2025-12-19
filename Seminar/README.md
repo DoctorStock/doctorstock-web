@@ -10,7 +10,7 @@
 - [Feat] 새로운 기능 구현
 - [Chore] 쓸모없는 코드 삭제, 코드 수정, 내부 파일 수정, 주석, 파일 이름/위치 변경
 - [Add] Feat 이외의 부수적인 코드 추가, 라이브러리 추가, 새로운 파일 생성 시, 에셋 추가
-- [Hotfix] 긴급수정
+- [Hotfix] 긴급수정dasdasdasdasdasdasdasdasdas
 - [Fix] 버그, 오류 해결
 ```
 

@@ -1,0 +1,207 @@
+@import "./theme.css";
+
+/* ============================================
+  Reset & Normalize
+  ============================================ */
+
+/* ===== 1. 기본 리셋 ===== */
+*,
+*::before,
+*::after {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+}
+
+/* ===== 2. 링크 ===== */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-primary-normal);
+}
+
+/* ===== 3. 폼 요소 ===== */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ===== 4. 이미지 ===== */
+img,
+picture {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== 5. Selection ===== */
+::selection {
+  background-color: var(--color-primary-normal);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--color-primary-normal);
+  color: white;
+}
+
+/* ===== 7. 목록 ===== */
+ul,
+ol {
+  list-style: none;
+}
+
+/* ===== 8. 테이블 ===== */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ============================================
+  custom 
+  ============================================ */
+
+/* ===== 1. 버튼 커스텀 ===== */
+.btn-primary {
+  background-color: var(--color-primary-normal);
+  color: var(--static-white);
+  cursor: pointer;
+  border: none;
+  height: 48px;
+  width: 100%;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.btn-primary:disabled {
+  background-color: var(--interaction-disable);
+  color: var(--label-assistive);
+  cursor: not-allowed;
+}
+
+/* ===== 2. 인풋 상태 메세지 ===== */
+.basic-message {
+  color: var(--label-alternative);
+}
+
+.error-message {
+  color: var(--status-destructive);
+}
+
+/* ===== 3. 폼 요소 공통 (input) ===== */
+.inputAssets {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.inputAssets label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inputAssets input {
+  width: 100%;
+  padding: 12px 45px 12px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line-normal);
+}
+
+.inputAssets input:focus {
+  border-color: rgba(67, 76, 232, 0.43);
+  box-shadow: 0 0 0 2px rgba(67, 76, 232, 0.43);
+}
+
+.inputAssets input.input-error {
+  border-color: rgba(255, 41, 41, 0.43);
+  box-shadow: 0 0 0 2px rgba(255, 41, 41, 0.43);
+}
+
+.inputAssets button {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.inputAssets .input-message {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* ===== 4. 커스텀 체크박스 ===== */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -mos-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--line-normal);
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-checkbox input[type="checkbox"]:checked {
+  background-color: var(--color-primary-normal);
+  border-color: var(--color-primary-normal);
+}
+
+.custom-checkbox input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 3.7px;
+  left: 2.8px;
+  width: 10.73px;
+  height: 7.73px;
+  background-image: url(/assets/custom-check.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
