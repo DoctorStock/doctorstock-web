@@ -56,13 +56,13 @@ export default function BarcodeScanner({ onBarcodeScanned }: BarcodeScannerProps
       });
 
       setStatus('스캔 중... 바코드를 카메라에 비춰주세요');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('스캔 시작 실패:', err);
       setIsScanning(false);
 
-      if (err.name === "NotAllowedError") {
+      if (err instanceof Error && err.name === "NotAllowedError") {
         setError("카메라 권한이 거부되었습니다. 브라우저 설정에서 카메라 권한을 허용해주세요.");
-      } else if (err.name === "NotFoundError") {
+      } else if (err instanceof Error && err.name === "NotFoundError") {
         setError("사용 가능한 카메라가 없습니다.");
       } else {
         setError("카메라 접근에 실패했습니다. 브라우저 권한과 기기를 확인해주세요.");
