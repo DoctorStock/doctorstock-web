@@ -38,7 +38,7 @@ export default function BarcodeScanner({ onBarcodeScanned }: BarcodeScannerProps
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       videoRef.current.srcObject = stream;
 
-      await codeReader.decodeFromStream(stream, videoRef.current, (result, _err) => {
+      await codeReader.decodeFromStream(stream, videoRef.current, (result) => {
         if (result) {
           const barcodeText = result.getText();
           setScannedResult(barcodeText);

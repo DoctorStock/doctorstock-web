@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import BarcodeScanner from './Barcode/page';
-import PurchaseForm from './Purchase/page';
+import PurchaseForm from './Purchase/PurchaseForm';
 import { PurchaseItem, FormData, initialPurchaseItems, initialFormData } from './data';
 import styles from './page.module.css';
 
