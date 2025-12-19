@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { PurchaseItem, FormData } from '../data';
 import clsx from 'clsx';
 import styles from './page.module.css';
@@ -10,7 +9,6 @@ interface PurchaseFormProps {
   formData: FormData;
   onFormDataChange: (data: FormData) => void;
   onPurchaseItemsChange: (items: PurchaseItem[]) => void;
-  onAddProductFromBarcode: (barcode: string) => void;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -20,7 +18,6 @@ export default function PurchaseForm({
   formData,
   onFormDataChange,
   onPurchaseItemsChange,
-  onAddProductFromBarcode,
   onConfirm,
   onCancel
 }: PurchaseFormProps) {
@@ -45,7 +42,7 @@ export default function PurchaseForm({
   };
 
   // 상품 정보 업데이트 및 구매가 재계산
-  const updateProduct = (id: number, field: string, value: any) => {
+  const updateProduct = (id: number, field: string, value: string | number) => {
     const updatedItems = purchaseItems.map(item => {
       if (item.id === id) {
         const updated = { ...item, [field]: value };
