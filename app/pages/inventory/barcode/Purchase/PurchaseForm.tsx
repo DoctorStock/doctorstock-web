@@ -2,7 +2,7 @@
 
 import { PurchaseItem, FormData } from '../data';
 import clsx from 'clsx';
-import styles from './page.module.css';
+import styles from './PurchaseForm.module.css';
 
 interface PurchaseFormProps {
   purchaseItems: PurchaseItem[];
@@ -14,7 +14,7 @@ interface PurchaseFormProps {
 }
 
 export default function PurchaseForm({
-  purchaseItems,
+  purchaseItems = [],
   formData,
   onFormDataChange,
   onPurchaseItemsChange,
@@ -56,7 +56,7 @@ export default function PurchaseForm({
     onPurchaseItemsChange(updatedItems);
   };
 
-  const totalPrice = purchaseItems.reduce((sum, item) => sum + item.purchasePrice, 0);
+  const totalPrice = (purchaseItems || []).reduce((sum, item) => sum + item.purchasePrice, 0);
 
   return (
     <div className={styles.formContainer}>
@@ -214,3 +214,4 @@ export default function PurchaseForm({
     </div>
   );
 }
+
