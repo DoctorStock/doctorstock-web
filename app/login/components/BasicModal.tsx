@@ -1,4 +1,4 @@
-import Portal from "./Portal";
+import Portal from './Portal';
 
 interface BasicModalProps {
   isOpen: boolean;
@@ -15,8 +15,8 @@ export default function BasicModal({
 
   return (
     <Portal>
-      <div className="modalOverlay">
-        <div className="modalBox">
+      <div className='modalOverlay'>
+        <div className='modalBox'>
           <p>{message}</p>
           <button onClick={onClose}>확인</button>
         </div>

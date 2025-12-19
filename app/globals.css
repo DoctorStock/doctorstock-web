@@ -1,4 +1,4 @@
-@import "./theme.css";
+@import './theme.css';
 
 /* ============================================
   Reset & Normalize
@@ -8,7 +8,6 @@
 *,
 *::before,
 *::after {
-* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -157,7 +156,7 @@ table {
 .inputAssets button {
   position: absolute;
   right: 10px;
-  top: 40px;
+  top: 36px;
   background: none;
   border: none;
   cursor: pointer;
@@ -175,7 +174,7 @@ table {
   user-select: none;
 }
 
-.custom-checkbox input[type="checkbox"] {
+.custom-checkbox input[type='checkbox'] {
   appearance: none;
   -webkit-appearance: none;
   -mos-appearance: none;
@@ -188,13 +187,13 @@ table {
   overflow: hidden;
 }
 
-.custom-checkbox input[type="checkbox"]:checked {
+.custom-checkbox input[type='checkbox']:checked {
   background-color: var(--color-primary-normal);
   border-color: var(--color-primary-normal);
 }
 
-.custom-checkbox input[type="checkbox"]:checked::after {
-  content: "";
+.custom-checkbox input[type='checkbox']:checked::after {
+  content: '';
   position: absolute;
   top: 3.7px;
   left: 2.8px;
@@ -204,4 +203,3 @@ table {
   background-repeat: no-repeat;
   background-position: center;
 }
-
