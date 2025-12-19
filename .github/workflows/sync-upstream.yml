@@ -1,0 +1,41 @@
+name: Sync Upstream Changes
+
+# 스케줄: 매 시간 정각에 실행 (원하는 주기로 조정 가능)
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:  # 수동 트리거도 가능하도록 설정
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 전체 히스토리 가져오기
+
+      - name: Set up Git configuration
+        run: |
+          git config user.name "GeonHyeongKim"
+          git config user.email "show11837@gmail.com"
+
+      - name: Add upstream remote
+        run: |
+          # 업스트림(remote) 추가; 이미 추가되어 있으면 에러 무시
+          git remote add upstream https://github.com/DoctorStock/doctorstock-web.git || echo "upstream already exists"
+          git fetch upstream
+
+      - name: Merge upstream changes into main
+        run: |
+          git checkout main
+          # upstream의 main 브랜치 변경사항을 병합 (자동 머지, 충돌 발생 시 실패)
+          git merge upstream/main --no-edit
+
+      - name: Push changes to personal repository
+        run: |
+          git push origin main
+        # 기본 GITHUB_TOKEN을 사용하거나, PAT을 사용하려면 아래와 같이 env 설정:
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.PAT }}
