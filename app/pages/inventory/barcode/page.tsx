@@ -57,7 +57,6 @@ export default function BarcodePage() {
           formData={formData}
           onFormDataChange={setFormData}
           onPurchaseItemsChange={setPurchaseItems}
-          onAddProductFromBarcode={handleBarcodeScanned}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
         />
