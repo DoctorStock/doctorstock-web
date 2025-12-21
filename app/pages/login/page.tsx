@@ -85,12 +85,11 @@ export default function Login() {
       <div className={styles.loginFormWrap}>
         <h1 className={styles.logo}>
           <Image
-            src="/assets/logo.svg"
+            src="/assets/logo-text.svg"
             alt="닥터스톡로고"
-            width={32}
+            width={198}
             height={32}
           ></Image>
-          <span>DoctorStock</span>
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="inputAssets">
