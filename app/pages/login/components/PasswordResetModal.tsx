@@ -148,7 +148,7 @@ export default function BasicModal({
           </div>
           <div className={styles.modalContent}>
             <form onSubmit={handleSubmit}>
-              <div className="inputAssets">
+              <div className={clsx(styles.inputAssets, 'inputAssets')}>
                 <label htmlFor="modal-userId">아이디</label>
                 <input
                   type="text"
@@ -175,7 +175,7 @@ export default function BasicModal({
                   </button>
                 )}
               </div>
-              <div className="inputAssets">
+              <div className={clsx(styles.inputAssets, 'inputAssets')}>
                 <label htmlFor="modal-currentPassword">현재 비밀번호</label>
                 <input
                   type={visibility.current ? "text" : "password"}
@@ -211,7 +211,7 @@ export default function BasicModal({
                   )}
                 </button>
               </div>
-              <div className="inputAssets">
+              <div className={clsx(styles.inputAssets, 'inputAssets')}>
                 <label htmlFor="modal-newPassword">새 비밀번호</label>
                 <input
                   type={visibility.new ? "text" : "password"}
@@ -256,7 +256,7 @@ export default function BasicModal({
                   {errors.newPassword}
                 </p>
               </div>
-              <div className="inputAssets">
+              <div className={clsx(styles.inputAssets, 'inputAssets')}>
                 <label htmlFor="modal-confirmPassword">새 비밀번호 확인</label>
                 <input
                   type={visibility.confirm ? "text" : "password"}
