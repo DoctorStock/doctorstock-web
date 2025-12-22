@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export const BASE_URL = process.env.BACKEND_API_URL || '';
 
