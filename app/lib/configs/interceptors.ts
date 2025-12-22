@@ -1,15 +1,13 @@
+// 외부
 import { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+
+// 내부 모듈
 import { apiClient } from './axios';
 import { AUTH_STORAGE_KEYS } from '../auth';
 import { ErrorResponse } from '../api';
 import { errorHandlers, UNKNOWN_ERROR, logError } from './errorHandlers';
 
-// 앱 시작 시 한 번 호출시, 모든 API 요청에 인터셉터가 적용
-export const configAxiosInterceptor = (): void => {
-  configRequestInterceptor(); // Request
-  configResponseInterceptor(); // Response
-};
-
+// ===== 내부 함수 =====
 // Request Interceptor 설정
 const configRequestInterceptor = (): void => {
   apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -58,3 +56,9 @@ const configResponseInterceptor = (): void => {
   );
 };
 
+// ===== Export =====
+// 앱 시작 시 한 번 호출시, 모든 API 요청에 인터셉터가 적용
+export const configAxiosInterceptor = (): void => {
+  configRequestInterceptor(); // Request
+  configResponseInterceptor(); // Response
+};

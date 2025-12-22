@@ -1,7 +1,10 @@
+// 외부
 import axios, { AxiosInstance } from 'axios';
 
-export const BASE_URL = process.env.BACKEND_API_URL || '';
+// ===== 상수 =====
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
+// ===== Export =====
 export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000, // 10 초

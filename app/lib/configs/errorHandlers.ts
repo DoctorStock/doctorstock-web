@@ -1,6 +1,8 @@
+// 내부 모듈
 import { ErrorInfo } from '../api';
 import { AUTH_STORAGE_KEYS } from '../auth';
 
+// ===== 상수 =====
 // 상태 코드별 에러 설정 (에러 코드 + 메시지)
 const ERROR_CONFIG = {
   401: { code: 'AUTH_ERROR', message: '인증이 만료되었습니다. 다시 로그인해주세요' },
@@ -12,6 +14,18 @@ const ERROR_CONFIG = {
 // 기본 에러 설정 (알 수 없는 에러)
 export const UNKNOWN_ERROR = { code: 'UNKNOWN_ERROR', message: '에러가 발생했습니다' } as const;
 
+// ===== 내부 함수 =====
+// 공통 에러 핸들러 생성 함수
+const createErrorHandler = (status: number) => {
+  return (errorData: ErrorInfo | undefined) => {
+    const config = ERROR_CONFIG[status as keyof typeof ERROR_CONFIG];
+    if (config) {
+      logError(errorData, config.message, config.code);
+    }
+  };
+};
+
+// ===== Export =====
 // 에러 로그
 export const logError = (
   errorData: ErrorInfo | undefined,
@@ -21,15 +35,6 @@ export const logError = (
   const errorMessage = errorData?.message || defaultMessage;
   const errorCode = errorData?.code || defaultCode;
   console.error(`[${errorCode}] ${errorMessage}`);
-};
-
-const createErrorHandler = (status: number) => {
-  return (errorData: ErrorInfo | undefined) => {
-    const config = ERROR_CONFIG[status as keyof typeof ERROR_CONFIG];
-    if (config) {
-      logError(errorData, config.message, config.code);
-    }
-  };
 };
 
 // 에러 핸들러 - 상태 코드별
