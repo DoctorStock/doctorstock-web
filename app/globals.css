@@ -125,7 +125,7 @@ table {
 
 /* ===== 3. 폼 요소 공통 (input) ===== */
 .inputAssets {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   position: relative;
 }
 
@@ -133,13 +133,14 @@ table {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
-  font-weight: 600;
+  line-height: 20px;
 }
 
 .inputAssets input {
   width: 100%;
-  padding: 12px 45px 12px 12px;
+  padding: 12px 46px 12px 12px;
   border-radius: 6px;
+  line-height: 22px;
   border: 1px solid var(--line-normal);
 }
 
@@ -153,10 +154,14 @@ table {
   box-shadow: 0 0 0 2px rgba(255, 41, 41, 0.43);
 }
 
+.inputAssets input::placeholder {
+  color: var(--label-assistive);
+}
+
 .inputAssets button {
   position: absolute;
   right: 10px;
-  top: 36px;
+  top: 40px;
   background: none;
   border: none;
   cursor: pointer;
@@ -164,7 +169,8 @@ table {
 
 .inputAssets .input-message {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 /* ===== 4. 커스텀 체크박스 ===== */
@@ -181,8 +187,8 @@ table {
   width: 18px;
   height: 18px;
   border: 1.5px solid var(--line-normal);
-  border-radius: 4px;
-  margin-right: 8px;
+  border-radius: 2px;
+  margin-right: 10px;
   position: relative;
   overflow: hidden;
 }
@@ -202,4 +208,9 @@ table {
   background-image: url(/assets/custom-check.svg);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.custom-checkbox span {
+  font-size: 15px;
+  line-height: 22px;
 }
