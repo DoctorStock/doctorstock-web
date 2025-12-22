@@ -1,5 +1,5 @@
 // 내부 모듈
-import { ErrorInfo } from '../api';
+import { NetworkError } from '@/app/api/types';
 import { AUTH_STORAGE_KEYS } from '../auth';
 
 // ===== 상수 =====
@@ -17,7 +17,7 @@ export const UNKNOWN_ERROR = { code: 'UNKNOWN_ERROR', message: '에러가 발생
 // ===== 내부 함수 =====
 // 공통 에러 핸들러 생성 함수
 const createErrorHandler = (status: number) => {
-  return (errorData: ErrorInfo | undefined) => {
+  return (errorData: NetworkError | undefined) => {
     const config = ERROR_CONFIG[status as keyof typeof ERROR_CONFIG];
     if (config) {
       logError(errorData, config.message, config.code);
@@ -28,7 +28,7 @@ const createErrorHandler = (status: number) => {
 // ===== Export =====
 // 에러 로그
 export const logError = (
-  errorData: ErrorInfo | undefined,
+  errorData: NetworkError | undefined,
   defaultMessage: string,
   defaultCode: string
 ): void => {
@@ -38,7 +38,7 @@ export const logError = (
 };
 
 // 에러 핸들러 - 상태 코드별
-export const errorHandlers: Record<number, (errorData: ErrorInfo | undefined) => void> = {
+export const errorHandlers: Record<number, (errorData: NetworkError | undefined) => void> = {
   // 토큰을 제거후, 로그인 페이지로 redirect
   401: (errorData) => { // 인증 오류
     // 토큰 제거

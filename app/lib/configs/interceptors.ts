@@ -4,7 +4,7 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConf
 // 내부 모듈
 import { apiClient } from './axios';
 import { AUTH_STORAGE_KEYS } from '../auth';
-import { ErrorResponse } from '../api';
+import { ErrorResponse } from '@/app/api/types';
 import { errorHandlers, UNKNOWN_ERROR, logError } from './errorHandlers';
 
 // ===== 내부 함수 =====

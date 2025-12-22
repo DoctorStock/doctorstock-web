@@ -1,11 +1,11 @@
-export interface ErrorInfo {
+export interface NetworkError {
   code: string;
   message: string;
 }
 
 export interface ErrorResponse {
   success: false;
-  error: ErrorInfo;
+  error: NetworkError;
 }
 
 // 성공 - Base Response 
@@ -14,3 +14,4 @@ export interface BaseResponse<T> {
   code: string;
   data?: T;
 }
+
