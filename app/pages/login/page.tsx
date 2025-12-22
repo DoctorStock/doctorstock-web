@@ -6,8 +6,9 @@ import PasswordResetModal from './components/PasswordResetModal';
 import styles from './page.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getSavedUserId, removeSavedId, saveUserId } from '../../lib/auth';
+import { getSavedUserId } from '../../lib/auth';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/app/hooks/useAuth';
 
 export default function Login() {
   const router = useRouter();
@@ -20,6 +21,8 @@ export default function Login() {
     useState(false);
   const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
   const [basicModalMessage, setBasicModalMessage] = useState('');
+
+  const { login, errorMessage } = useAuth();
 
   //컴포넌트 마운트시, localstorage에 savedUserId가 있다면 불러오기
   useEffect(() => {
@@ -43,41 +46,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: userId,
-          userPassword: userPassword,
-        }),
-      });
-
-      const data = await response.json();
-
-      //로그인 실패 시
-      if (!response.ok || !data.success) {
-        alert(data.error || '로그인 실패!');
-        return;
-      }
-
-      // 로그인 성공 시 토큰 저장
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
-
-      //아이디 저장 옵션
-      if (saveId) {
-        saveUserId(userId);
-      } else {
-        removeSavedId();
-      }
-
-      //로그인 성공 이후 메인페이지로 이동
-      router.push('/');
-    } catch (error) {
-      console.error('로그인 에러:', error);
-      alert('서버 오류');
-    }
+    await login({ userId, userPassword }, saveId);
   };
 
   return (
@@ -173,22 +142,30 @@ export default function Login() {
               <span>아이디저장</span>
             </label>
           </div>
-          <button
-            type='submit'
-            disabled={!isFormValid}
-            className={`btn-primary ${styles.loginSubmitBtn}`}
-          >
-            로그인
-          </button>
-          <button
-            type='button'
-            onClick={() => {
-              setIsPasswordResetModalOpen(true);
-            }}
-            className={styles.passwordResetBtn}
-          >
-            비밀번호 재설정
-          </button>
+          <div className={styles.loginBtnsWrap}>
+            {/* 에러 메시지 표시 */}
+            {errorMessage && (
+              <p className={styles.errorMessage}>{errorMessage}</p>
+            )}
+            <div className={styles.loginBtnsGroup}>
+              <button
+                type='submit'
+                disabled={!isFormValid}
+                className={`btn-primary ${styles.loginSubmitBtn}`}
+              >
+                로그인
+              </button>
+              <button
+                type='button'
+                onClick={() => {
+                  setIsPasswordResetModalOpen(true);
+                }}
+                className={styles.passwordResetBtn}
+              >
+                비밀번호 재설정
+              </button>
+            </div>
+          </div>
         </form>
       </div>
       <div className={styles.footerInquiry}>

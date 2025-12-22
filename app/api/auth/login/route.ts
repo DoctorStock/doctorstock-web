@@ -1,3 +1,4 @@
+import { getApiErrorMessage } from '@/app/lib/getApiErrorMessage';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -7,6 +8,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const { userId, userPassword } = await request.json();
+
     console.log(' 데이터 파싱 성공:', { userId });
     console.log(' 백엔드로 요청 보내는 중...');
 
@@ -27,10 +29,12 @@ export async function POST(request: NextRequest) {
         expiresIn: data.expiresIn,
       });
     }
+
+    const errorMessage = getApiErrorMessage(response.status, data.error?.code);
     return NextResponse.json(
       {
         success: false,
-        error: data.error?.message || '로그인 실패',
+        error: errorMessage,
         code: data.error?.code,
       },
       { status: response.status }
@@ -40,7 +44,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: '서버 오류',
+        error: getApiErrorMessage(500),
       },
       { status: 500 }
     );

@@ -30,8 +30,12 @@
   min-width: 336px;
 }
 
-.loginSubmitBtn {
+.loginBtnsWrap {
   margin-top: 20px;
+}
+
+.loginBtnsGroup {
+  margin-top: 16px;
 }
 
 .loginCheckboxGroup {
