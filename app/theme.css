@@ -110,7 +110,9 @@
        ============================================ */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
+  --spacing-10: 10px;
   --spacing-md: 16px;
+  --spacing-20: 20px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
   --spacing-2xl: 40px;
@@ -140,14 +142,22 @@
        Border Radius
        ============================================ */
   --radius-sm: 4px;
+  --radius-sm-md: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-full: 9999px;
 
   /* ============================================
+       Hover Colors
+       ============================================ */
+  --hover-normal: #e5e8f0;
+
+  /* ============================================
        Gray Colors
        ============================================ */
   --gray-g100: #f3f4f6;
+  --gray-g600: #4D5562;
+  --gray-g700: #394150;
   --gray-g900: #121826;
 }

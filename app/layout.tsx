@@ -2,27 +2,28 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./theme.css";
+import LayoutProvider from "./providers/LayoutProvider";
 
 // Pretendard 폰트 설정
 const pretendard = localFont({
   src: [
     {
-      path: './fonts/Pretendard-Regular.woff2',
+      path: '../public/fonts/Pretendard-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './fonts/Pretendard-Medium.woff2',
+      path: '../public/fonts/Pretendard-Medium.woff2',
       weight: '500',
       style: 'normal',
     },
     {
-      path: './fonts/Pretendard-SemiBold.woff2',
+      path: '../public/fonts/Pretendard-SemiBold.woff2',
       weight: '600',
       style: 'normal',
     },
     {
-      path: './fonts/Pretendard-Bold.woff2',
+      path: '../public/fonts/Pretendard-Bold.woff2',
       weight: '700',
       style: 'normal',
     },
@@ -44,7 +45,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.variable}>
-        {children}
+        <LayoutProvider>
+          {children}
+        </LayoutProvider>
+        <div id="modal-root"></div>
       </body>
     </html>
   );

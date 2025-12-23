@@ -1,0 +1,90 @@
+.header {
+  width: 100%;
+  padding: 16px 20px;
+  background-color: var(--gray-g900);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 왼쪽, 오른쪽 */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 아이콘과 텍스트 사이 간격 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  cursor: pointer;
+}
+
+.logoIcon {
+  flex-shrink: 0; /* 공간이 부족해도 아이콘 크기 유지 */
+}
+
+.logoText {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--static-white);
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 병원이름과 사용자 정보 사이 간격 */
+}
+
+.hospitalName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-g100);
+}
+
+.userNameGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.userName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-g100);
+}
+
+.userRole {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-g100);
+}
+
+.notificationButton {
+  background: none; /* 배경 제거 */
+  border: none;
+  transition: opacity 0.2s; /* 호버 효과 */
+  cursor: pointer;
+}
+
+.notificationButton:hover {
+  opacity: 0.8;
+}
+
+.logoutButton {
+  padding: 8px 16px;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--interaction-inactive);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: var(--bg-normal-normal-10); 
+}
+
