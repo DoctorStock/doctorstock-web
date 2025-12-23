@@ -55,3 +55,8 @@
   font-size: 14px;
   width: 100%;
 }
+
+.errorMessage {
+  font-size: 13px;
+  margin-top: 20px;
+}

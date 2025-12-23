@@ -2,7 +2,15 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { AUTH_STORAGE_KEYS, removeSavedId, saveUserId } from '../lib/auth';
+import {
+  AUTH_STORAGE_KEYS,
+  SUPER_ADMIN_ID,
+  removeSavedId,
+  saveUserId,
+  validatePassword,
+} from '../lib/auth/auth';
+import { LOGIN_ERROR_MESSAGES } from '../constants/loginErrorMessages';
+import { getLoginErrorMessages } from '../lib/auth/getLoginErrorMessages';
 
 interface LoginCredentials {
   userId: string;
@@ -12,9 +20,32 @@ interface LoginCredentials {
 export const useAuth = () => {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState('');
+  const [hasLoginError, setHasLoginError] = useState(false);
+
+  const setLoginError = (message: string) => {
+    setErrorMessage(message);
+    setHasLoginError(true);
+  };
+
+  const clearLoginError = () => {
+    setErrorMessage('');
+    setHasLoginError(false);
+  };
 
   const login = async (credentials: LoginCredentials, saveId: boolean) => {
-    setErrorMessage('');
+    clearLoginError();
+
+    const isSuperAdmin = credentials.userId === SUPER_ADMIN_ID;
+
+    // 비밀번호 유효성 검사
+    if (
+      !validatePassword(credentials.userPassword, {
+        skip: isSuperAdmin,
+      })
+    ) {
+      setLoginError(LOGIN_ERROR_MESSAGES.DEFAULT);
+      return false;
+    }
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -30,32 +61,41 @@ export const useAuth = () => {
 
       // 로그인 실패 시
       if (!response.ok || !data.success) {
-        setErrorMessage(data.error || '로그인 실패');
+        setLoginError(getLoginErrorMessages(data.errorCode));
         return false;
       }
 
-      // 로그인 성공 시 토큰 저장
+      //  토큰 누락 (비정상 케이스)
+      if (!data.accessToken || !data.refreshToken) {
+        console.error('토큰 누락:', data);
+        setLoginError(LOGIN_ERROR_MESSAGES.DEFAULT);
+        return false;
+      }
+
+      //  로그인 성공
       localStorage.setItem(AUTH_STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
       localStorage.setItem(AUTH_STORAGE_KEYS.REFRESH_TOKEN, data.refreshToken);
 
-      // 아이디 저장 옵션
       if (saveId) {
         saveUserId(credentials.userId);
       } else {
         removeSavedId();
       }
 
-      // 로그인 성공 이후 메인페이지로 이동
+      clearLoginError();
       router.push('/');
       return true;
     } catch (error) {
+      //  네트워크 / 런타임 에러
       console.error('로그인 에러:', error);
-      setErrorMessage('서버 오류가 발생했습니다.');
+      setLoginError(LOGIN_ERROR_MESSAGES.DEFAULT);
       return false;
     }
   };
   return {
     login,
     errorMessage,
+    hasLoginError,
+    clearLoginError,
   };
 };

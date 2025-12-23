@@ -6,12 +6,11 @@ import PasswordResetModal from './components/PasswordResetModal';
 import styles from './page.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getSavedUserId } from '../../lib/auth';
-import { useRouter } from 'next/navigation';
+import { getSavedUserId } from '../../lib/auth/auth';
 import { useAuth } from '@/app/hooks/useAuth';
+import clsx from 'clsx';
 
 export default function Login() {
-  const router = useRouter();
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [visibility, setVisibility] = useState(false);
@@ -22,7 +21,7 @@ export default function Login() {
   const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
   const [basicModalMessage, setBasicModalMessage] = useState('');
 
-  const { login, errorMessage } = useAuth();
+  const { login, errorMessage, hasLoginError, clearLoginError } = useAuth();
 
   //컴포넌트 마운트시, localstorage에 savedUserId가 있다면 불러오기
   useEffect(() => {
@@ -42,6 +41,16 @@ export default function Login() {
     );
     setIsBasicModalOpen(true);
   };
+
+  const handleChange =
+    (setter: (value: string) => void) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setter(e.target.value);
+
+      if (hasLoginError) {
+        clearLoginError();
+      }
+    };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,10 +75,11 @@ export default function Login() {
             <input
               type='text'
               id='userId'
+              className={clsx('input', {
+                'input-error': hasLoginError,
+              })}
               value={userId}
-              onChange={e => {
-                setUserId(e.target.value);
-              }}
+              onChange={handleChange(setUserId)}
               placeholder='아이디를 입력해 주세요.'
             />
             {userId && (
@@ -91,11 +101,12 @@ export default function Login() {
             <label htmlFor='userPassword'>비밀번호</label>
             <input
               id='userPassword'
+              className={clsx('input', {
+                'input-error': hasLoginError,
+              })}
               type={visibility ? 'text' : 'password'}
               value={userPassword}
-              onChange={e => {
-                setUserPassword(e.target.value);
-              }}
+              onChange={handleChange(setUserPassword)}
               placeholder='비밀번호를 입력해 주세요.'
             />
             <button
@@ -145,7 +156,14 @@ export default function Login() {
           <div className={styles.loginBtnsWrap}>
             {/* 에러 메시지 표시 */}
             {errorMessage && (
-              <p className={styles.errorMessage}>{errorMessage}</p>
+              <p
+                className={clsx(
+                  styles.errorMessage,
+                  hasLoginError ? 'error-message' : 'basic-message'
+                )}
+              >
+                {errorMessage}
+              </p>
             )}
             <div className={styles.loginBtnsGroup}>
               <button

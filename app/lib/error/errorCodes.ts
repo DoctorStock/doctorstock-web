@@ -1,0 +1,7 @@
+export type ErrorCode =
+  | 'INVALID_CREDENTIALS'
+  | 'RESIGNED_USER'
+  | 'UNAUTHORIZED'
+  | 'FORBIDDEN'
+  | 'SERVER_ERROR'
+  | 'LOGIN_FAILED';
