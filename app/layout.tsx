@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./theme.css";
+import QueryProvider from "./providers/QueryProvider";
 import LayoutProvider from "./providers/LayoutProvider";
 
 // Pretendard 폰트 설정
@@ -45,9 +46,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.variable}>
-        <LayoutProvider>
-          {children}
-        </LayoutProvider>
+        <QueryProvider>
+          <LayoutProvider>
+            {children}
+          </LayoutProvider>
+        </QueryProvider>
         <div id="modal-root"></div>
       </body>
     </html>
