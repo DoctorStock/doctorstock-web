@@ -16,3 +16,4 @@ export const getSavedUserId = (): string | null => {
 export const removeSavedId = () => {
   localStorage.removeItem(AUTH_STORAGE_KEYS.SAVED_ID);
 };
+
