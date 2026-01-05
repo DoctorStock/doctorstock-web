@@ -21,16 +21,26 @@ export default function Login() {
   const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
   const [basicModalMessage, setBasicModalMessage] = useState('');
 
-  const { login, errorMessage, hasLoginError, clearLoginError } = useAuth();
+  const {
+    login,
+    checkAutoLogin,
+    errorMessage,
+    hasLoginError,
+    clearLoginError,
+  } = useAuth();
 
-  //컴포넌트 마운트시, localstorage에 savedUserId가 있다면 불러오기
+  //컴포넌트 마운트시, 자동로그인 체크 및 localstorage에 savedUserId가 있다면 불러오기
   useEffect(() => {
+    //자동로그인 시도
+    checkAutoLogin();
+
+    //저장된 아이디 불러오기
     const savedId = getSavedUserId();
     if (savedId) {
       setUserId(savedId);
       setSaveId(true);
     }
-  }, []);
+  }, [checkAutoLogin]);
 
   //버튼 활성화를 위한 폼 유효성 체크
   const isFormValid = userId.trim() !== '' && userPassword.trim() !== '';
@@ -55,7 +65,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await login({ userId, userPassword }, saveId);
+    await login({ userId, userPassword }, saveId, autoLogin);
   };
 
   return (

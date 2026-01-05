@@ -3,6 +3,7 @@ export const AUTH_STORAGE_KEYS = {
   AUTO_LOGIN: 'autoLogin',
   ACCESS_TOKEN: 'accessToken',
   REFRESH_TOKEN: 'refreshToken',
+  ACCESS_TOKEN_EXPIRES_AT: 'accessTokenExpiresAt',
 } as const;
 
 //임시로 최고관리지 아이디 둠(유효성 검사 통과 예외)

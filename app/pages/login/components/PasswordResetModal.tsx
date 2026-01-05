@@ -3,7 +3,7 @@ import styles from './loginComponents.module.css';
 import clsx from 'clsx';
 import Portal from './Portal';
 import Image from 'next/image';
-import { validatePassword } from '@/app/lib/auth/auth';
+import { useAuth } from '@/app/hooks/useAuth';
 
 interface PasswordResetModalProps {
   isOpen: boolean;
@@ -44,6 +44,7 @@ export default function BasicModal({
   onClose,
   onSuccess,
 }: PasswordResetModalProps) {
+  const { resetPassword, errorMessage, clearLoginError } = useAuth();
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [visibility, setVisibility] = useState<PasswordVisibility>(
     INITIAL_PASSWORD_VISIBILITY
@@ -58,6 +59,9 @@ export default function BasicModal({
         ...prev,
         [field]: e.target.value,
       }));
+      if (errorMessage) {
+        clearLoginError();
+      }
     };
 
   const toggleVisibility = (field: keyof PasswordVisibility) => {
@@ -90,20 +94,6 @@ export default function BasicModal({
 
     const newErrors: FormErrors = {};
 
-    if (!validatePassword(formData.newPassword)) {
-      newErrors.newPassword =
-        '영문, 숫자, 특수문자를 포함하여 8자 이상 입력해 주세요.';
-      setErrors(newErrors);
-      return;
-    }
-
-    if (formData.newPassword === formData.currentPassword) {
-      newErrors.newPassword =
-        '현재 비밀번호와 동일합니다. 다른 비밀번호를 사용해 주세요.';
-      setErrors(newErrors);
-      return;
-    }
-
     if (!isMatched) {
       newErrors.confirmPassword = confirmMessage;
       setErrors(newErrors);
@@ -111,8 +101,15 @@ export default function BasicModal({
     }
 
     try {
+      const result = await resetPassword({
+        userId: formData.userId,
+        currentPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+      })
+      if (result.success) {
       onSuccess(formData.userId);
       handleClose();
+      }
     } catch (error) {
       console.error('비밀번호 재설정 실패:', error);
     }
@@ -120,7 +117,9 @@ export default function BasicModal({
 
   const handleClose = () => {
     setFormData(INITIAL_FORM_DATA);
+    setVisibility(INITIAL_PASSWORD_VISIBILITY);
     setErrors({});
+    clearLoginError();
     onClose();
   };
 
@@ -204,6 +203,11 @@ export default function BasicModal({
                   )}
                 </button>
               </div>
+              {errorMessage && (
+                <p className={clsx('input-message', 'error-message')}>
+                  {errorMessage}
+                </p>
+              )}
               <div className={clsx(styles.inputAssets, 'inputAssets')}>
                 <label htmlFor='modal-newPassword'>새 비밀번호</label>
                 <input

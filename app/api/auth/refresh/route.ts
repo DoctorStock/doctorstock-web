@@ -4,17 +4,27 @@ export async function POST(request: NextRequest) {
   const BACKEND_URL = process.env.BACKEND_API_URL;
 
   try {
-    const { userId, userPassword } = await request.json();
+    const { refreshToken } = await request.json();
 
-    const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
+    if (!refreshToken) {
+      return NextResponse.json(
+        {
+          success: false,
+          errorCode: 'MISSING_REFRESH_TOKEN',
+        },
+        { status: 400 }
+      );
+    }
+    const response = await fetch(`${BACKEND_URL}/api/auth/refresh`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: userId, password: userPassword }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshToken }),
     });
 
     const data = await response.json();
 
-    // 로그인 성공
     if (response.ok && data.data?.accessToken) {
       return NextResponse.json({
         success: true,
@@ -32,7 +42,7 @@ export async function POST(request: NextRequest) {
       { status: response.status }
     );
   } catch (error) {
-    console.error('로그인 API 에러:', error);
+    console.error('토큰 갱신 API 에러:', error);
 
     return NextResponse.json(
       {
