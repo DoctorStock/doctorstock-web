@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex-wrap: wrap;
+}
+
+.filterIconButton {
+  padding: var(--spacing-10) var(--spacing-12);
+  border: 1px solid var(--line-neutral-22);
+  background-color: var(--gray-white);
+  border-radius: var(--radius-12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.filterIconButton:hover {
+  background-color: var(--gray-g100);
+}
+
+.filterIconButton.active {
+  background-color: var(--blue-b100);
+  border-color: var(--blue-b500);
+}
+
+.filterIconButton.active:hover {
+  background-color: var(--blue-b100);
+}
+
+.filterChip {
+  padding: var(--spacing-8) var(--spacing-12);
+  border: 1px solid var(--line-neutral-22);
+  background-color: var(--gray-white);
+  border-radius: var(--radius-12);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-g500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-6);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterChip:hover {
+  background-color: var(--gray-g100);
+}
+
+.filterChip.active {
+  border-color: var(--blue-b500);
+  color: var(--gray-g800);
+}
+
+.clearAllButton {
+  padding: var(--spacing-8) 0 var(--spacing-8) 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-g500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-6);
+  transition: all 0.2s;
+}

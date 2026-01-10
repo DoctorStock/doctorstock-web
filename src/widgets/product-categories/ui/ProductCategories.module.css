@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--spacing-16);
+  min-width: 0;
+}
+
+.card {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.header {
+  padding: var(--spacing-16) var(--spacing-24);
+}
+
+.title {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-g800);
+  margin: 0;
+}
+
+.content {
+  padding: 0 var(--spacing-24) var(--spacing-16);
+}
+

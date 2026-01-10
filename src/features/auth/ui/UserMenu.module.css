@@ -1,0 +1,52 @@
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hospitalName {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-white);
+}
+
+.userNameGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.userName {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-white);
+}
+
+.userRole {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-white);
+}
+
+.logoutButton {
+  padding: 7px 14px;
+  background-color: var(--static-white);
+  border: none;
+  border-radius: var(--radius-6);
+  color: var(--label-normal);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-medium);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: var(--bg-normal-normal-10);
+}
+

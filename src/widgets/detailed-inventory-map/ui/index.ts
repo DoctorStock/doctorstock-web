@@ -1,0 +1,2 @@
+export { DetailedInventoryMap } from './DetailedInventoryMap';
+

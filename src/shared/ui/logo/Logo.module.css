@@ -1,0 +1,17 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5.21px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logoIcon {
+  flex-shrink: 0;
+  height: 16.94px;
+}
+
+.logoText {
+  flex-shrink: 0;
+  width: 106.85px;
+}

@@ -1,0 +1,94 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog {
+  padding: var(--spacing-23) var(--spacing-24);
+  background-color: var(--gray-white);
+  border-radius: var(--radius-8);
+  width: 90%;
+  max-width: 480px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 16px;
+}
+
+.title {
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-g900);
+  margin: 0;
+}
+
+.content {
+  padding: 0 var(--spacing-24) var(--spacing-20);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.footerLeft {
+  flex: 1;
+  min-width: 0;
+}
+
+.footerRight {
+  display: flex;
+  gap: var(--spacing-8);
+  flex-shrink: 0;
+}
+
+.cancelButton,
+.confirmButton {
+  width: 100px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-4);
+  font-size: var(--font-size-15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cancelButton {
+  padding: var(--spacing-10) 0;
+  border: 1px solid var(--gray-g300);
+  background-color: var(--gray-white);
+  color: var(--gray-g800);
+  font-weight: var(--font-weight-medium);
+}
+
+.confirmButton {
+  padding: var(--spacing-10) 0;
+  border: none;
+  background-color: var(--blue-b700);
+  color: var(--gray-white);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 400px) {
+  .cancelButton,
+  .confirmButton {
+    width: auto;
+    min-width: 60px;
+    flex: 1;
+  }
+}
+

@@ -1,0 +1,157 @@
+.inventoryMapSection {
+  background: var(--gray-white);
+  border: 1px solid var(--line-neutral-16);
+  border-right: none;
+  border-radius: var(--radius-8) 0 0 var(--radius-8);
+  padding: var(--spacing-16);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-16);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-g800);
+  margin: 0;
+}
+
+.dropdown {
+  padding: var(--spacing-6) var(--spacing-12);
+  border: 1px solid var(--line-neutral-16);
+  border-radius: var(--radius-4);
+  background-color: var(--gray-white);
+  font-size: var(--font-size-14);
+  color: var(--gray-g800);
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdown:hover {
+  border-color: var(--blue-b400);
+}
+
+/* 탭 스타일 */
+.tabs {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-16);
+  border-bottom: 1px solid var(--line-neutral-16);
+  padding-bottom: var(--spacing-8);
+}
+
+.tab {
+  padding: var(--spacing-8) var(--spacing-12);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-g500);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--gray-g800);
+  background: var(--gray-g100);
+}
+
+.tabActive {
+  color: var(--blue-b500);
+  border-bottom-color: var(--blue-b500);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* 4x3 그리드 스타일 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--spacing-12);
+  flex: 1;
+  min-height: 0;
+}
+
+.gridItem {
+  background: var(--gray-g100);
+  border: 1px solid var(--line-neutral-16);
+  border-radius: var(--radius-8);
+  padding: var(--spacing-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-14);
+  color: var(--gray-g800);
+  cursor: move;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 0;
+  position: relative;
+}
+
+.gridItem:not(.empty):hover {
+  border-color: var(--blue-b400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.teamLabel {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-g600);
+  margin-bottom: var(--spacing-4);
+}
+
+.roomName {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-g800);
+  text-align: center;
+}
+
+/* 드래그 중인 아이템 */
+.gridItem.dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+  transform: scale(0.95);
+  z-index: 1000;
+}
+
+/* 드롭 대상 위치 하이라이트 */
+.gridItem.dragOver {
+  background: rgba(67, 76, 232, 0.1) !important;
+  border: 2px dashed var(--blue-b500) !important;
+  border-radius: var(--radius-8);
+  transform: scale(1.05);
+  box-shadow: 0 0 0 4px rgba(67, 76, 232, 0.1);
+}
+
+/* 빈 칸 스타일 */
+.gridItem.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+  color: transparent;
+  pointer-events: none;
+}
+
+.gridItem.empty:hover {
+  background: transparent;
+  border: none;
+}
+
+/* 드래그 중일 때 빈 칸도 드롭 가능하도록 하이라이트 */
+.gridItem.empty.dragOver {
+  background: rgba(67, 76, 232, 0.15) !important;
+  border: 2px dashed var(--blue-b500) !important;
+}
+

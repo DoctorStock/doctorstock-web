@@ -1,0 +1,11 @@
+.notificationModal {
+  background: none;
+  border: none;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.notificationModal:hover {
+  opacity: 0.8;
+}
+
