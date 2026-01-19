@@ -31,3 +31,7 @@
   gap: var(--spacing-15);
   min-width: 0;
 }
+
+.categoriesRow {
+  grid-column: 1 / -1;
+}

@@ -10,14 +10,19 @@
   /* Colors - Gray Scale */
   --gray-white: #ffffff;
   --gray-g100: #f3f4f6;
-  --gray-g200: #e5e7eb;
-  --gray-g300: #d2d5da;
-  --gray-g400: #9da3ae;
-  --gray-g500: #6c727f;
-  --gray-g600: #4d5562;
+  --gray-g150: #E7EAEF;
+  --gray-g200: #E5E7EB;
+  --gray-g300: #D2D5DA;
+  --gray-g400: #9DA3AE;
+  --gray-g500: #6C727F;
+  --gray-g600: #4D5562;
   --gray-g700: #4b5563;
   --gray-g800: #212936;
   --gray-g900: #121826;
+
+  /* Colors - Red Scale */
+  --red-r400: #DA8845;
+  --red-r500: #DD5D54;
 
   /* Static Colors */
   --static-white: #ffffff;
@@ -65,6 +70,7 @@
   --font-size-16: 16px;
   --font-size-18: 18px;
   --font-size-20: 20px;
+  --font-size-22: 22px;
   --font-size-26: 26px;
 
   /* Font Weights */
@@ -83,11 +89,13 @@
   --spacing-8: 8px;
   --spacing-9: 9px;
   --spacing-10: 10px;
+  --spacing-11: 11px;
   --spacing-12: 12px;
   --spacing-13: 13px;
   --spacing-14: 14px;
   --spacing-15: 15px;
   --spacing-16: 16px;
+  --spacing-17: 17px;
   --spacing-20: 20px;
   --spacing-23: 23px;
   --spacing-24: 24px;
@@ -99,4 +107,5 @@
   --radius-8: 8px;
   --radius-9: 9px;
   --radius-12: 12px;
+  --radius-24: 24px;
 }

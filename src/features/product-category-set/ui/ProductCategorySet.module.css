@@ -1,0 +1,253 @@
+.card {
+  --star-icon-size: 24px;
+  --star-button-padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 400px;
+  overflow: hidden;
+  padding: var(--spacing-12) var(--spacing-4) 0 var(--spacing-16);
+  margin-bottom: var(--spacing-24);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-8);
+}
+
+.title {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-g800);
+}
+
+.tableContainer {
+  position: relative;
+  max-height: 378px;
+  overflow: hidden;
+}
+
+.tableWrapper {
+  position: relative;
+  max-height: 378px;
+  overflow-y: scroll;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-g200) transparent;
+  scrollbar-gutter: stable;
+  padding-right: var(--spacing-4);
+}
+
+.tableWrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background-color: var(--gray-g200);
+  border-radius: 2px;
+}
+
+.table {
+  width: 100%;
+  min-width: 320px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.tableSet .headerLabel:nth-child(2) {
+  width: 46px;
+}
+
+.tableHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--gray-white);
+  border-bottom: 1px solid var(--line-neutral-16);
+}
+
+.headerLabel {
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-g500);
+  text-align: left;
+  padding: var(--spacing-5) 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headerLabel:first-child {
+  width: auto;
+  min-width: 166px;
+  padding-left: calc(var(--star-icon-size) + var(--star-button-padding) * 2 + var(--spacing-4) * 2);
+}
+
+.headerLabel:nth-child(2) {
+  width: 72px;
+  text-align: center;
+}
+
+.headerLabel:nth-child(3) {
+  width: 42px;
+  text-align: center;
+}
+
+.headerLabel:nth-child(4) {
+  width: 46px;
+  text-align: center;
+}
+
+.row {
+  border-bottom: 0.5px solid var(--line-neutral-16);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row td {
+  vertical-align: middle;
+}
+
+.rowSet td {
+  padding: var(--spacing-7) 0;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.starButton {
+  padding: var(--spacing-4);
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+  flex: 1;
+}
+
+.productName {
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-g800);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.description {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-regular);
+  color: var(--gray-g500);
+}
+
+.tags {
+  display: flex;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-medium);
+  color: var(--red-r500);
+}
+
+.tag:last-child {
+  color: var(--red-r400);
+}
+
+.productNameCell {
+  min-width: 166px;
+}
+
+.quantityCell {
+  width: 72px;
+  text-align: center;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-regular);
+  color: var(--gray-g800);
+}
+
+.addToCartCell {
+  width: 42px;
+  text-align: center;
+}
+
+.addToCartButton {
+  padding: var(--spacing-17) var(--spacing-11);
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.useCell {
+  width: 46px;
+  text-align: center;
+}
+
+.useButton {
+  padding: 0 8.5px;
+  border: 1px solid var(--blue-b400);
+  background-color: var(--gray-white);
+  line-height: 26px;
+  color: var(--blue-b700);
+  border-radius: var(--radius-4);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all 0.2s;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.useButton:hover {
+  background-color: var(--blue-b100);
+}
+
+.fadeOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: var(--spacing-4);
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.emptyMessage {
+  font-size: var(--font-size-16);
+  color: var(--gray-g500);
+  font-weight: var(--font-weight-regular);
+}
