@@ -3,9 +3,6 @@ import { SearchBar, useSearch } from '@/features/search';
 import { FilterDialog, SelectedFilters, useFilter } from '@/features/filter';
 import { NotificationList } from '@/features/notification';
 import { InboundWaitingList } from '@/features/inbound-waiting';
-import { ProductCategories } from '@/widgets/product-categories';
-import { InventoryMap } from '@/widgets/inventory-map';
-import { DetailedInventoryMap } from '@/widgets/detailed-inventory-map';
 import styles from './Page.module.css';
 
 export default function Home() {
@@ -42,20 +39,13 @@ export default function Home() {
             onOpenFilter={openFilter}
           />
 
-          <div className={styles.mapsArea}>
-            <InventoryMap />
-            <DetailedInventoryMap />
-          </div>
+          {/* TODO: 재고지도/리스트들 */}
         </main>
 
         <aside className={styles.aside}>
           <NotificationList />
           <InboundWaitingList />
         </aside>
-
-        <div className={styles.categoriesRow}>
-          <ProductCategories />
-        </div>
       </div>
 
       <FilterDialog

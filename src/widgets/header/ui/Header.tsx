@@ -1,6 +1,6 @@
 import { Logo } from '@/shared/ui/logo';
 import { NotificationModal } from '@/features/notification/ui/NotificationModal';
-import { UserMenu } from '@/features/auth/ui/UserMenu';
+import { UserMenu } from '@/features/auth/logout/ui/UserMenu';
 import styles from './Header.module.css';
 
 export default function Header() {

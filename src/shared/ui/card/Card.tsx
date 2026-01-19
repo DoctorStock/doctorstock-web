@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import clsx from 'clsx';
 import styles from './Card.module.css';
 
 interface CardProps {
@@ -7,11 +8,9 @@ interface CardProps {
   onClick?: () => void;
 }
 
-export const Card = ({ children, className = '', onClick }: CardProps) => {
-  const cardClasses = `${styles.card} ${className}`.trim();
-
+export const Card = ({ children, className, onClick }: CardProps) => {
   return (
-    <div className={cardClasses} onClick={onClick}>
+    <div className={clsx(styles.card, className)} onClick={onClick}>
       {children}
     </div>
   );

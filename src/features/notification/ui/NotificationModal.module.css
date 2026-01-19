@@ -1,4 +1,7 @@
 .notificationModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   transition: opacity 0.2s;

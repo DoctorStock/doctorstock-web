@@ -1,12 +1,18 @@
 import axios, { AxiosError } from 'axios';
-import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import type {
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { AUTH_STORAGE_KEYS } from '@/shared/config/auth';
 import type { ErrorResponse } from './types';
 import { errorHandlers, UNKNOWN_ERROR, logError } from './errorHandlers';
 
 const BASE_URL = import.meta.env.DEV
+
   ? '/api'  // 개발 환경: Vite 프록시 사용
   : import.meta.env.BACKEND_API_URL  // 프로덕션: 환경변수에서 가져옴
+
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -19,7 +25,6 @@ apiClient.interceptors.request.use(
     const accessToken = localStorage.getItem(AUTH_STORAGE_KEYS.ACCESS_TOKEN);
     
     if (accessToken) {
-      config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
@@ -37,9 +42,7 @@ apiClient.interceptors.response.use(
   async (error: AxiosError<ErrorResponse>) => {
     const response = error.response;
 
-    // 응답이 없는 경우
     if (!response) {
-      console.error('네트워크 오류 또는 서버에 연결할 수 없습니다.');
       return Promise.reject(error);
     }
 

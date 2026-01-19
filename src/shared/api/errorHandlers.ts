@@ -2,13 +2,19 @@ import type { NetworkError } from '@/shared/api/types';
 import { AUTH_STORAGE_KEYS } from '@/shared/config/auth';
 
 const ERROR_CONFIG = {
-  401: { code: 'AUTH_ERROR', message: '인증이 만료되었습니다. 다시 로그인해주세요' },
+  401: {
+    code: 'AUTH_ERROR',
+    message: '인증이 만료되었습니다. 다시 로그인해주세요',
+  },
   403: { code: 'FORBIDDEN', message: '접근 권한이 없습니다' },
   404: { code: 'NOT_FOUND', message: '요청한 리소스를 찾을 수 없습니다' },
   500: { code: 'SERVER_ERROR', message: '서버 오류가 발생했습니다' },
 } as const;
 
-export const UNKNOWN_ERROR = { code: 'UNKNOWN_ERROR', message: '에러가 발생했습니다' } as const;
+export const UNKNOWN_ERROR = {
+  code: 'UNKNOWN_ERROR',
+  message: '에러가 발생했습니다',
+} as const;
 
 const createErrorHandler = (status: number) => {
   return (errorData: NetworkError | undefined) => {
@@ -28,14 +34,17 @@ export const logError = (
   // 팝업으로 에러 메시지 표시
 };
 
-export const errorHandlers: Record<number, (errorData: NetworkError | undefined) => void> = {
+export const errorHandlers: Record<
+  number,
+  (errorData: NetworkError | undefined) => void
+> = {
   401: (errorData) => {
     localStorage.removeItem(AUTH_STORAGE_KEYS.ACCESS_TOKEN);
     localStorage.removeItem(AUTH_STORAGE_KEYS.REFRESH_TOKEN);
     if (typeof window !== 'undefined') {
       window.location.href = '/pages/login';
     }
-    
+
     const config = ERROR_CONFIG[401];
     logError(errorData, config.message, config.code);
   },

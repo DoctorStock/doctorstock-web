@@ -8,23 +8,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  padding: 1rem var(--spacing-24) 14px;
-}
-
-.header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--line-neutral-16);
+  padding: var(--spacing-14) var(--spacing-24);
+  border-bottom: 1px solid var(--line-neutral-16);
 }
 
 .titleSection {
   display: flex;
   align-items: center;
+  min-width: 0;
+  flex: 1;
 }
 
 .title {
@@ -32,6 +24,10 @@
   font-weight: var(--font-weight-bold);
   color: var(--gray-g800);
   margin-left: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .moreButton {
@@ -67,5 +63,6 @@
   font-size: var(--font-size-15);
   font-weight: var(--font-weight-semibold);
   color: var(--gray-g500);
+  white-space: nowrap;
 }
 

@@ -15,6 +15,7 @@ export function Tooltip({ children, text }: TooltipProps) {
       className={styles.container}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
+      onTouchStart={() => setIsVisible((prev) => !prev)}
     >
       {children}
       {isVisible && (

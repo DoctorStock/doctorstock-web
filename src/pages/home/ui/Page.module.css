@@ -31,14 +31,3 @@
   gap: var(--spacing-15);
   min-width: 0;
 }
-
-.categoriesRow {
-  grid-column: 1 / -1;
-}
-
-.mapsArea {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 0;
-  min-height: 500px;
-}

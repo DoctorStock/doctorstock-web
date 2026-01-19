@@ -15,8 +15,8 @@ export default function Sidebar() {
             // 마지막 섹션(설정)인지 확인
             const isLastSection = sectionIndex === navigationItems.length - 1;
             return (
-              <div 
-                key={section.title || `section-${sectionIndex}`} 
+              <div
+                key={section.title || `section-${sectionIndex}`}
                 className={clsx(
                   section.title && styles.section,
                   isLastSection && styles.settingsSection
@@ -29,10 +29,13 @@ export default function Sidebar() {
                   {section.items.map((item) => {
                     const isActive = pathname === item.href;
                     return (
-                      <Link 
+                      <Link
                         key={item.href}
-                        to={item.href} 
-                        className={clsx(styles.menuItem, isActive && styles.active)}
+                        to={item.href}
+                        className={clsx(
+                          styles.menuItem,
+                          isActive && styles.active
+                        )}
                       >
                         {item.icon && (
                           <img

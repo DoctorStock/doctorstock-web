@@ -10,21 +10,17 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(__dirname, 'src'),
       },
     },
     server: {
-      proxy: env.BACKEND_API_URL ? {
+      proxy: {
         '/api': {
-          target: env.BACKEND_API_URL,
+          target: env.VITE_BACKEND_API_URL,
           changeOrigin: true,
           secure: false,
         },
-      } : undefined,
-    },
-    build: {
-      outDir: 'dist',
-      assetsDir: 'assets',
+      },
     },
   };
 });

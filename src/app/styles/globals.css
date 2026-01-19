@@ -1,11 +1,19 @@
-@import "../../shared/styles/theme.css";
+@import '/src/shared/styles/theme.css';
 
-* {
+/* ============================================
+  Reset & Normalize
+  ============================================ */
+
+/* ===== 1. 기본 리셋 ===== */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html,
 body {
   width: 100%;
   height: 100%;
@@ -14,3 +22,151 @@ body {
   font-family: var(--font-family);
 }
 
+/* ===== 2. 링크 ===== */
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--blue-b700);
+}
+
+/* ===== 3. 폼 요소 ===== */
+button {
+  font-family: unset;
+  font-size: unset;
+  color: unset;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+input,
+textarea,
+select {
+  font-family: unset;
+  font-size: unset;
+  color: unset;
+  border: none;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ===== 4. 이미지 ===== */
+img,
+picture {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== 5. Selection ===== */
+::selection {
+  background-color: var(--blue-b700);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--blue-b700);
+  color: white;
+}
+
+/* ===== 7. 목록 ===== */
+ul,
+ol {
+  list-style: none;
+}
+
+/* ===== 8. 테이블 ===== */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ============================================
+  custom 
+  ============================================ */
+
+/* ===== 버튼 커스텀 ===== */
+.btn-primary {
+  background-color: var(--blue-b700);
+  color: var(--static-white);
+  cursor: pointer;
+  border: none;
+  height: 48px;
+  width: 100%;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.btn-primary:disabled {
+  background-color: var(--interaction-disable);
+  color: var(--label-assistive);
+  cursor: not-allowed;
+}
+
+/* ===== 인풋 상태 메세지 ===== */
+.input-message {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.basic-message {
+  color: var(--label-alternative);
+}
+
+.error-message {
+  color: var(--status-destructive);
+}
+
+/* ===== 커스텀 체크박스 ===== */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.custom-checkbox input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -mos-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--line-neutral-22);
+  border-radius: 2px;
+  margin-right: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-checkbox input[type='checkbox']:checked {
+  background-color: var(--blue-b700);
+  border-color: var(--blue-b700);
+}
+
+.custom-checkbox input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  top: 3.7px;
+  left: 2.8px;
+  width: 10.73px;
+  height: 7.73px;
+  background-image: url(/assets/custom-check.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.custom-checkbox span {
+  font-size: 15px;
+  line-height: 22px;
+}
