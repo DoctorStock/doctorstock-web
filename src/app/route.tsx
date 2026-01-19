@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Login from '@/pages/login/ui/Page';
 import AppShell from './layout/AppShell';
-import Home from '@/pages/Home/ui/Page';
+import Home from '@/pages/home/ui/Page';
 import Status from '@/pages/status/ui/Page';
 import Purchase from '@/pages/purchase/ui/Page';
 import Usage from '@/pages/usage/ui/Page';
