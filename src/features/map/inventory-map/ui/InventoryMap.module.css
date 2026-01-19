@@ -138,7 +138,6 @@
   background-color: transparent;
   border: none;
   cursor: default;
-  pointer-events: none;
 }
 
 /* Empty State */

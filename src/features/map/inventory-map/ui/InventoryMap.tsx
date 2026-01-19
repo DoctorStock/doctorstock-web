@@ -1,12 +1,18 @@
 import clsx from 'clsx';
 import { Card } from '@/shared/ui/card';
+import { useDragSwap } from '@/shared/hooks/useDragSwap';
 import { TABS } from '../config/tabs';
 import { useInventoryMap } from '../model/useInventoryMap';
 import type { InventoryMapProps } from '../model/types';
 import styles from './InventoryMap.module.css';
 
 export function InventoryMap({ selectedLocation, onLocationClick, onTabChange }: InventoryMapProps) {
-  const { selectedTab, displayedLocations, hasLocations, handleTabChange } = useInventoryMap(onTabChange);
+  const { selectedTab, displayedLocations, hasLocations, handleTabChange, handleLocationDrop } =
+    useInventoryMap(onTabChange);
+  const { handleDragStart, handleDragOver, handleDrop } = useDragSwap({
+    type: 'inventory-location',
+    onSwap: handleLocationDrop,
+  });
 
   return (
     <Card className={styles.card}>
@@ -42,7 +48,15 @@ export function InventoryMap({ selectedLocation, onLocationClick, onTabChange }:
                     !location && styles.empty,
                     location && selectedLocation?.id === location.id && styles.active
                   )}
-                  onClick={() => location && onLocationClick(location)}
+                  onClick={() => {
+                    if (!location) return;
+                    const isSelected = selectedLocation?.id === location.id;
+                    onLocationClick(isSelected ? null : location);
+                  }}
+                  draggable={Boolean(location)}
+                  onDragStart={location ? handleDragStart(index) : undefined}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop(index)}
                 >
                   {location && (
                     <>

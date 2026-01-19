@@ -1,31 +1,29 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { MOCK_LOCATIONS } from './mocks';
 import { TABS, GRID_SIZE } from '../config/tabs';
 
 export function useInventoryMap(onTabChange?: () => void) {
   const [selectedTab, setSelectedTab] = useState<string>('all');
-
-  const { displayedLocations, hasLocations } = useMemo(() => {
-    let filteredLocations: typeof MOCK_LOCATIONS;
+  const [gridLocations, setGridLocations] = useState<(typeof MOCK_LOCATIONS[0] | null)[]>([]);
+  const filteredLocations = useMemo(() => {
+    if (selectedTab === 'all') return MOCK_LOCATIONS;
     
-    if (selectedTab === 'all') {
-      filteredLocations = MOCK_LOCATIONS;
-    } else {
-      const tab = TABS.find((t) => t.id === selectedTab);
-      const teamName = tab?.label || '';
-      filteredLocations = MOCK_LOCATIONS.filter((location) => location.team === teamName);
-    }
+    const tab = TABS.find((t) => t.id === selectedTab);
+    const teamName = tab?.label || '';
 
-    const hasLocations = filteredLocations.length > 0;
+    return MOCK_LOCATIONS.filter((location) => location.team === teamName);
+  }, [selectedTab]);
 
-    // 4x3 grid 유지
+  const hasLocations = filteredLocations.length > 0;
+
+  useEffect(() => {
+    // 필터 변경 시 재구성
     const locations: (typeof MOCK_LOCATIONS[0] | null)[] = Array.from(
       { length: GRID_SIZE },
       (_, index) => filteredLocations[index] ?? null
     );
-    
-    return { displayedLocations: locations, hasLocations };
-  }, [selectedTab]);
+    setGridLocations(locations);
+  }, [filteredLocations]);
 
   // 탭 변경 시 초기화
   const handleTabChange = (tabId: string) => {
@@ -36,5 +34,14 @@ export function useInventoryMap(onTabChange?: () => void) {
     }
   };
 
-  return { selectedTab, displayedLocations, hasLocations, handleTabChange };
+  const handleLocationDrop = (fromIndex: number, toIndex: number) => {
+    // 인덱스 기준으로 swap
+    setGridLocations((prev) => {
+      const next = [...prev];
+      [next[fromIndex], next[toIndex]] = [next[toIndex], next[fromIndex]];
+      return next;
+    });
+  };
+
+  return { selectedTab, displayedLocations: gridLocations, hasLocations, handleTabChange, handleLocationDrop };
 }

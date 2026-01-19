@@ -1,4 +1,5 @@
 import type { Product } from '@/entities/product';
+import type { CategoryCard } from './types';
 
 export const MOCK_FIRST_CATEGORY: Product[] = [
   {
@@ -141,3 +142,8 @@ export const MOCK_SETS: Product[] = [
   },
 ];
 
+export const CATEGORY_CARDS: CategoryCard[] = [
+  { id: 'category-1', title: '주사제', products: MOCK_FIRST_CATEGORY },
+  { id: 'category-2', title: '소모품', products: MOCK_SECOND_CATEGORY },
+  { id: 'category-3', title: '필러/보톡스/실', products: MOCK_THIRD_CATEGORY },
+];

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { InventoryMap } from '@/features/map/inventory-map';
+import { DetailedMap } from '@/features/map/detailed-map';
 import type { Location } from '@/features/map/inventory-map/model/mocks';
 import styles from './InventoryMapWidget.module.css';
 
@@ -13,6 +14,7 @@ export function InventoryMapWidget() {
         onLocationClick={setSelectedLocation}
         onTabChange={() => setSelectedLocation(null)}
       />
+      <DetailedMap selectedLocation={selectedLocation} />
     </div>
   );
 }
