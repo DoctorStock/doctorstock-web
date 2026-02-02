@@ -3,10 +3,10 @@ import { Card } from '@/shared/ui/card';
 import { useDragSwap } from '@/shared/hooks/useDragSwap';
 import { TABS } from '../config/tabs';
 import { useInventoryMap } from '../model/useInventoryMap';
-import type { InventoryMapProps } from '../model/types';
+import type { InventoryMapConfig } from '../model/types';
 import styles from './InventoryMap.module.css';
 
-export function InventoryMap({ selectedLocation, onLocationClick, onTabChange }: InventoryMapProps) {
+export function InventoryMap({ selectedLocation, onLocationClick, onTabChange, onSettingsClick, hasActiveFilters = false }: InventoryMapConfig) {
   const { selectedTab, displayedLocations, hasLocations, handleTabChange, handleLocationDrop } =
     useInventoryMap(onTabChange);
   const { handleDragStart, handleDragOver, handleDrop } = useDragSwap({
@@ -17,7 +17,7 @@ export function InventoryMap({ selectedLocation, onLocationClick, onTabChange }:
   return (
     <Card className={styles.card}>
       <div className={styles.header}>
-        <h3 className={styles.title}>재고지도</h3>
+        <h3 className={clsx(styles.title, hasActiveFilters && styles.titleActive)}>재고지도</h3>
         {hasLocations && (
           <div className={styles.tabs}>
             {TABS.map((tab) => (
@@ -31,7 +31,11 @@ export function InventoryMap({ selectedLocation, onLocationClick, onTabChange }:
             ))}
           </div>
         )}
-        <button className={styles.settingsButton} aria-label="설정">
+        <button 
+          className={styles.settingsButton} 
+          aria-label="설정"
+          onClick={onSettingsClick}
+        >
           설정
           <img src="/assets/right-arrow.svg" alt="" width={12} height={12} />
         </button>

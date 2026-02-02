@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { AUTH_STORAGE_KEYS } from '@/shared/config/auth';
 import { clearAuthTokens, updateTokens } from '@/entities/auth/';
-import { tokenRefreshApi } from '../api/tokenRefeshApi';
+import { tokenRefreshApi } from '@/features/auth/session';
 
 export function useTokenRefresh() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,7 +13,7 @@ export function useTokenRefresh() {
     try {
       const accessToken = localStorage.getItem(AUTH_STORAGE_KEYS.ACCESS_TOKEN);
       const expiresAt = localStorage.getItem(
-        AUTH_STORAGE_KEYS.ACCESS_TOKEN_EXPIRES_AT
+        AUTH_STORAGE_KEYS.ACCESS_TOKEN_EXPIRES_AT,
       );
       const autoLogin =
         localStorage.getItem(AUTH_STORAGE_KEYS.AUTO_LOGIN) === 'true';
@@ -40,7 +40,7 @@ export function useTokenRefresh() {
         data.accessToken,
         data.refreshToken,
         data.expiresAt,
-        autoLogin
+        autoLogin,
       );
 
       setIsAuthenticated(true);

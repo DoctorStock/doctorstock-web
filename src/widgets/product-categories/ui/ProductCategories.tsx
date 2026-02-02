@@ -1,14 +1,16 @@
-import { ProductCategorySet, useToggleFavorite, useAddToCart, useProductUse } from '@/features/product-category-set';
+import { ProductCategorySet, useAddToCart, useProductUse } from '@/features/product-category-set';
 import { CATEGORY_CARDS, MOCK_SETS } from '../model/mocks';
 import { useCategoryOrder } from '../model/useCategoryOrder';
 import styles from './ProductCategories.module.css';
 
-export function ProductCategories() {
+interface ProductCategories {
+  hasActiveFilters?: boolean;
+}
 
-  const { handleToggleFavorite } = useToggleFavorite();
+export function ProductCategories({ hasActiveFilters = false }: ProductCategories) {
   const { handleAddToCart } = useAddToCart();
   const { handleUse } = useProductUse();
-  const { categoryOrder, handleDragStart, handleDragOver, handleDrop } = useCategoryOrder(CATEGORY_CARDS);
+  const { categoryOrder, sets, handleDragStart, handleDragOver, handleDrop, handleToggleFavorite } = useCategoryOrder(CATEGORY_CARDS, MOCK_SETS);
 
   return (
     <div className={styles.container}>
@@ -23,6 +25,7 @@ export function ProductCategories() {
           <ProductCategorySet
             title={category.title}
             products={category.products}
+            hasActiveFilters={hasActiveFilters}
             onToggleFavorite={handleToggleFavorite}
             onAddToCart={handleAddToCart}
             onUse={handleUse}
@@ -32,7 +35,7 @@ export function ProductCategories() {
       <ProductCategorySet
         isSet={true}
         title="세트"
-        products={MOCK_SETS}
+        products={sets}
         onToggleFavorite={handleToggleFavorite}
         onUse={handleUse}
       />

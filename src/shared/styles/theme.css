@@ -41,6 +41,7 @@
   --blue-b400: #a0a5f0;
   --blue-b500: #646cf4;
   --blue-b700: #434ce8;
+  --blue-b750: #3C43D3;
 
   /* Status Colors */
   --status-destructive: #ff2929;
@@ -57,6 +58,16 @@
   --label-alternative: rgba(55, 56, 60, 0.61);
   --label-assistive: rgba(55, 56, 60, 0.28);
   --label-disable: rgba(55, 56, 60, 0.16);
+
+  /* TODO: Category Colors 추후에 색상 변경 필요 */
+  --category-filler-bg: #FFFEDE;
+  --category-filler-text: #AF601B;
+  --category-supplies-bg: #DEF7FF;
+  --category-supplies-text: #2A4A96;
+  --category-cosmetics-bg: #E2FFDB;
+  --category-cosmetics-text: #0F6849;
+  --category-inject-bg: #FFEEEE;
+  --category-inject-text: #C9492F;
 
   /* Typography */
   --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
@@ -81,6 +92,7 @@
 
   /* Spacing */
   --spacing-1: 1px;
+  --spacing-2: 2px;
   --spacing-3: 3px;
   --spacing-4: 4px;
   --spacing-5: 5px;
@@ -100,6 +112,7 @@
   --spacing-23: 23px;
   --spacing-24: 24px;
   --spacing-28: 28px;
+  --spacing-40: 40px;
 
   /* Border Radius */
   --radius-4: 4px;
@@ -108,4 +121,5 @@
   --radius-9: 9px;
   --radius-12: 12px;
   --radius-24: 24px;
+
 }

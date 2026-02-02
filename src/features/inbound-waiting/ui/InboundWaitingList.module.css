@@ -1,27 +1,22 @@
-
 .card {
-  --scrollbar-padding: var(--spacing-5); /* 스크롤바 너비 고려 */
-  --table-padding-x: 20px; /* left, right */
-  --table-padding-top: 10px;
   --col-date: 72px;
-  --col-register: 72px;
   --col-purchaser: 72px;
+  --col-register: 46px;
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow: hidden;
+  padding: var(--spacing-12) var(--spacing-4) 0 var(--spacing-16);
 }
 
 .title {
   font-size: var(--font-size-16);
   font-weight: var(--font-weight-bold);
   color: var(--gray-g800);
-  margin: 0;
   display: flex;
   align-items: center;
   gap: var(--spacing-8);
-  margin-bottom: var(--spacing-6);
-  padding: var(--table-padding-top) var(--table-padding-x) 0 var(--table-padding-x);
+  margin-bottom: var(--spacing-8);
 }
 
 .count {
@@ -31,27 +26,20 @@
 }
 
 .tableContainer {
+  position: relative;
   min-width: 0;
-  padding-left: var(--table-padding-x);
+  padding-left: var(--spacing-4);
 }
 
 .listWrapper {
   position: relative;
-  max-height: 174px;
-  overflow-y: auto;
+  max-height: 241px;
+  overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--gray-g200) transparent;
   scrollbar-gutter: stable;
-  padding-right: var(--scrollbar-padding);
-  margin-bottom: 41px;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  table-layout: fixed;
+  padding-right: var(--spacing-4);
 }
 
 .listWrapper::-webkit-scrollbar {
@@ -63,11 +51,18 @@
   border-radius: 2px;
 }
 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
 .header {
   position: sticky;
   top: 0;
-  z-index: 2;
-  background: var(--gray-white);
+  z-index: 1;
+  background-color: var(--gray-white);
 }
 
 .header tr {
@@ -79,36 +74,26 @@
   font-weight: var(--font-weight-semibold);
   color: var(--gray-g500);
   text-align: left;
-  padding: var(--spacing-5) var(--spacing-10);
-  min-width: 0;
+  padding: var(--spacing-5) 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .headerLabel:first-child {
-  padding-left: 0;
   width: var(--col-date);
+  padding-left: 0;
 }
 
 .headerLabel:nth-child(2) {
   width: var(--col-purchaser);
-  padding-left: var(--spacing-6);
-  padding-right: var(--spacing-6);
-}
-
-.headerLabel:nth-child(3) {
-  padding-left: 0;
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
 }
 
 .headerLabel:last-child {
-  text-align: center;
   width: var(--col-register);
-  padding-right: var(--scrollbar-padding);
-}
-
-.list {
-  min-width: 0;
+  text-align: center;
 }
 
 .item {
@@ -120,40 +105,19 @@
 }
 
 .item td {
-  padding: var(--spacing-10) var(--spacing-10);
+  padding: var(--spacing-10) 0;
   min-width: 0;
 }
 
 .item td:first-child {
-  padding-left: 0;
   width: var(--col-date);
-}
-
-.item td:last-child {
-  padding-right: var(--scrollbar-padding);
-  width: var(--col-register);
+  padding-left: 0;
 }
 
 .item td:nth-child(2) {
   width: var(--col-purchaser);
-  padding-left: var(--spacing-6);
-  padding-right: var(--spacing-6);
-}
-
-.item td:nth-child(3) {
-  padding-left: 0;
-}
-
-.fadeOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: var(--scrollbar-padding);
-  height: 50px;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
-  pointer-events: none;
-  z-index: 1;
-  margin-right: var(--scrollbar-padding);
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
 }
 
 .date,
@@ -173,6 +137,7 @@
 }
 
 .productName {
+  width: var(--col-purchaser);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -182,20 +147,44 @@
 
 .registerButton {
   padding: 0 8.5px;
+  width: fit-content;
+  white-space: nowrap;
   border: 1px solid var(--blue-b400);
+  border-radius: var(--radius-4);
   background-color: var(--gray-white);
   line-height: 26px;
   color: var(--blue-b700);
-  border-radius: var(--radius-4);
   font-size: var(--font-size-13);
   font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition: all 0.2s;
-  justify-self: center;
-  width: fit-content;
-  white-space: nowrap;
 }
 
 .registerButton:hover {
   background-color: var(--blue-b100);
+}
+
+.fadeOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: var(--spacing-4);
+  height: 77px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
+  pointer-events: none;
+  z-index: 1;
+  margin-right: 10px;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.emptyMessage {
+  font-size: var(--font-size-16);
+  color: var(--gray-g500);
+  font-weight: var(--font-weight-regular);
 }

@@ -6,7 +6,7 @@ import styles from './InboundWaitingList.module.css';
 
 export function InboundWaitingList() {
   const inboundWaitingCount = MOCK_INBOUND_WAITING.length;
-  const { listRef, showOverlay: _showOverlay } = useScrollOverlay();
+  const { listRef, showOverlay } = useScrollOverlay();
   const { handleRegister } = useInboundWaiting();
 
   return (
@@ -22,27 +22,36 @@ export function InboundWaitingList() {
                 <th className={styles.headerLabel}>일자</th>
                 <th className={styles.headerLabel}>구매처</th>
                 <th className={styles.headerLabel}>제품명</th>
-                <th className={styles.headerLabel}>입고등록</th>
+                <th className={styles.headerLabel}>등록</th>
               </tr>
             </thead>
             <tbody className={styles.list}>
-              {MOCK_INBOUND_WAITING.map((item) => (
-                <tr key={item.id} className={styles.item}>
-                  <td className={styles.date}>{item.date}</td>
-                  <td className={styles.purchaser}>{item.purchaser}</td>
-                  <td className={styles.productName}>{item.productName}</td>
-                  <td className={styles.registerCell}>
-                    <button className={styles.registerButton} onClick={() => handleRegister(item.id)}>
-                      등록
-                    </button>
+              {inboundWaitingCount === 0 ? (
+                <tr>
+                  <td colSpan={4}>
+                    <div className={styles.emptyState}>
+                      <p className={styles.emptyMessage}>입고 대기 목록이 없습니다.</p>
+                    </div>
                   </td>
                 </tr>
-              ))}
+              ) : (
+                MOCK_INBOUND_WAITING.map((item) => (
+                  <tr key={item.id} className={styles.item}>
+                    <td className={styles.date}>{item.date}</td>
+                    <td className={styles.purchaser}>{item.purchaser}</td>
+                    <td className={styles.productName}>{item.productName}</td>
+                    <td className={styles.registerCell}>
+                      <button className={styles.registerButton} onClick={() => handleRegister(item.id)}>
+                        등록
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
-          {/* TODO: 스크롤 오버레이 추가 */}
-          {/* {_showOverlay && <div className={styles.fadeOverlay} />} */}
         </div>
+        {showOverlay && <div className={styles.fadeOverlay} />}
       </div>
     </Card>
   );

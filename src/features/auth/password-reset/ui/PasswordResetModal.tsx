@@ -18,9 +18,10 @@ export function PasswordResetModal({
   const {
     formData,
     visibility,
-    errors,
-    errorMessage,
+    authError,
+    validationError,
     isMatched,
+    isSubmitted,
     hasConfirmPassword,
     isFormValid,
     handleChange,
@@ -32,11 +33,7 @@ export function PasswordResetModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const success = await submit(e);
-    if (success) {
-      onClose(); // 성공 시 모달 닫기
-    }
+    await submit(e);
   };
 
   if (!isOpen) return null;
@@ -59,6 +56,7 @@ export function PasswordResetModal({
               aria-label="닫기"
             />
           </header>
+
           <div className={styles.modalContent}>
             <form onSubmit={handleSubmit}>
               {/* 아이디 */}
@@ -68,8 +66,12 @@ export function PasswordResetModal({
                   value={formData.userId}
                   onChange={handleChange('userId')}
                   placeholder="아이디를 입력해 주세요."
-                  className={clsx(errors.userId && 'input-error')}
+                  className={clsx({
+                    'input-error':
+                      (isSubmitted && !formData.userId) || !!authError,
+                  })}
                 />
+
                 {formData.userId && (
                   <button
                     type="button"
@@ -94,12 +96,21 @@ export function PasswordResetModal({
                   value={formData.currentPassword}
                   onChange={handleChange('currentPassword')}
                   placeholder="사용중인 비밀번호를 입력해 주세요."
-                  className={clsx(errors.currentPassword && 'input-error')}
+                  className={clsx({
+                    'input-error':
+                      (isSubmitted && !formData.currentPassword) || !!authError,
+                  })}
                 />
                 <VisibilityToggle
                   visible={visibility.current}
                   onToggle={() => toggleVisibility('current')}
                 />
+
+                {authError && (
+                  <p className={clsx('input-message', 'error-message')}>
+                    {authError}
+                  </p>
+                )}
               </div>
 
               {/* 새 비밀번호 */}
@@ -110,26 +121,23 @@ export function PasswordResetModal({
                   value={formData.newPassword}
                   onChange={handleChange('newPassword')}
                   placeholder="영문, 숫자, 특수문자 포함 8자 이상"
-                  className={clsx(errorMessage && 'input-error')}
+                  className={clsx({
+                    'input-error': !!validationError,
+                  })}
                 />
                 <VisibilityToggle
                   visible={visibility.new}
                   onToggle={() => toggleVisibility('new')}
                 />
 
-                {errorMessage && (
-                  <p
-                    className={clsx(
-                      'input-message',
-                      errorMessage ? 'error-message' : 'basic-message'
-                    )}
-                  >
-                    {errorMessage}
+                {validationError && (
+                  <p className={clsx('input-message', 'error-message')}>
+                    {validationError}
                   </p>
                 )}
               </div>
 
-              {/* 확인 */}
+              {/* 새 비밀번호 확인 */}
               <div className={styles.inputAssets}>
                 <label>새 비밀번호 확인</label>
                 <input

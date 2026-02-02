@@ -39,13 +39,13 @@ export default function Sidebar() {
                       >
                         {item.icon && (
                           <img
-                            src={item.icon}
-                            alt={item.title}
+                            src={`/assets/${item.icon}${isActive ? '_white' : '_black'}.svg`}
+                            alt=""
                             width={20}
                             height={20}
                           />
                         )}
-                        {item.title}
+                        <span>{item.title}</span>
                       </Link>
                     );
                   })}

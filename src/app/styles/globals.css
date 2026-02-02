@@ -114,6 +114,17 @@ table {
   cursor: not-allowed;
 }
 
+/* ===== 인풋 상태 아웃라인 ===== */
+input:focus {
+  border-color: rgba(67, 76, 232, 0.43);
+  outline: 2px solid rgba(67, 76, 232, 0.43);
+}
+
+input.input-error {
+  border-color: rgba(255, 41, 41, 0.43);
+  outline: 2px solid rgba(255, 41, 41, 0.43);
+}
+
 /* ===== 인풋 상태 메세지 ===== */
 .input-message {
   margin-top: 8px;

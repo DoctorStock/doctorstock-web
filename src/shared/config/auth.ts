@@ -7,4 +7,4 @@ export const AUTH_STORAGE_KEYS = {
 } as const;
 
 // 임시 최고 관리자 (비밀번호 검증 예외)
-export const SUPER_ADMIN_ID = '권미리';
+export const SUPER_ADMIN_ID = 'admin';

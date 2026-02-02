@@ -12,4 +12,3 @@ export const MOCK_INBOUND_WAITING: InboundWaitingItem[] = [
   { id: '9', date: '25.09.01', purchaser: '매디팜9', productName: '리즈네9' },
   { id: '10', date: '25.09.01', purchaser: '매디팜10', productName: '리즈네10' },
 ];
-

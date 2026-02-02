@@ -3,7 +3,7 @@ import type { RefObject } from 'react';
 
 // 외부 클릭 이벤트 핸들러
 export function useClickOutside<T extends Element = Element>(
-  ref: RefObject<T>,
+  ref: RefObject<T | null>,
   handler: () => void,
   isEnabled: boolean = true
 ) {
@@ -23,4 +23,3 @@ export function useClickOutside<T extends Element = Element>(
     };
   }, [ref, handler, isEnabled]);
 }
-

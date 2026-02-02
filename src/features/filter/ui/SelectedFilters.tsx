@@ -29,7 +29,10 @@ export function SelectedFilters({
         className={`${styles.filterIconButton} ${hasActiveFilters ? styles.active : ''}`}
         onClick={onOpenFilter}
       >
-        <img src="/assets/filter.svg" alt="필터" width={18} height={18} />
+        <img src={`/assets/filter${hasActiveFilters ? '_blue' : '_black'}.svg`} alt="필터"/>
+        {hasActiveFilters && (
+          <img src="/assets/blue_on.svg" alt="" className={styles.onIcon} />
+        )}
       </button>
       {selectedFilterList.map((filter) => {
         const isActive = activeFilters.has(filter.id);

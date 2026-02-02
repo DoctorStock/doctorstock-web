@@ -14,8 +14,6 @@ interface PasswordVisibility {
   confirm: boolean;
 }
 
-type FormErrors = Partial<Record<keyof FormData, string>>;
-
 const INITIAL_FORM_DATA: FormData = {
   userId: '',
   currentPassword: '',
@@ -30,24 +28,24 @@ const INITIAL_VISIBILITY: PasswordVisibility = {
 };
 
 export function usePasswordResetForm(onSuccess: (userId: string) => void) {
-  const { passwordReset, errorMessage, clearError } = usePasswordReset();
+  const { passwordReset, errorMessage, errorType, clearError } =
+    usePasswordReset();
 
-  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
-  const [visibility, setVisibility] =
-    useState<PasswordVisibility>(INITIAL_VISIBILITY);
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+  const [visibility, setVisibility] = useState(INITIAL_VISIBILITY);
+  const [confirmError, setConfirmError] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = useCallback(
+  const handleChange =
     (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData((prev) => ({ ...prev, [field]: e.target.value }));
       if (errorMessage) clearError();
-    },
-    [errorMessage, clearError]
-  );
+      if (field === 'confirmPassword') setConfirmError('');
+    };
 
-  const toggleVisibility = useCallback((field: keyof PasswordVisibility) => {
+  const toggleVisibility = (field: keyof PasswordVisibility) => {
     setVisibility((prev) => ({ ...prev, [field]: !prev[field] }));
-  }, []);
+  };
 
   const isMatched =
     formData.confirmPassword === formData.newPassword &&
@@ -59,57 +57,63 @@ export function usePasswordResetForm(onSuccess: (userId: string) => void) {
     (value) => value.trim() !== ''
   );
 
-  const clearField = useCallback((field: keyof FormData) => {
-    setFormData((prev) => ({ ...prev, [field]: '' }));
-  }, []);
+  //에러타입에 따른 에러메세지 분기
+  const authError = errorType === 'auth' ? errorMessage : '';
+  const validationError = errorType === 'validation' ? errorMessage : '';
+
+  const clearField = useCallback(
+    (field: keyof FormData) => {
+      setFormData((prev) => ({ ...prev, [field]: '' }));
+
+      if (field === 'confirmPassword') {
+        setConfirmError('');
+      }
+
+      clearError();
+    },
+    [clearError]
+  );
 
   const reset = useCallback(() => {
     setFormData(INITIAL_FORM_DATA);
     setVisibility(INITIAL_VISIBILITY);
-    setErrors({});
+    setConfirmError('');
     clearError();
   }, [clearError]);
 
-  const submit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
 
-      if (!isMatched) {
-        setErrors({ confirmPassword: '비밀번호가 불일치합니다.' });
-        return false;
-      }
+    if (!isMatched) {
+      setConfirmError('비밀번호가 불일치합니다.');
+      return;
+    }
 
-      try {
-        const result = await passwordReset({
-          userId: formData.userId,
-          currentPassword: formData.currentPassword,
-          newPassword: formData.newPassword,
-        });
+    const success = await passwordReset({
+      userId: formData.userId,
+      currentPassword: formData.currentPassword,
+      newPassword: formData.newPassword,
+    });
 
-        if (result.success) {
-          onSuccess?.(formData.userId);
-          reset();
-          return true;
-        }
-
-        return false;
-      } catch (error) {
-        console.error('비밀번호 재설정 실패:', error);
-        return false;
-      }
-    },
-    [formData, isMatched, passwordReset, onSuccess, reset]
-  );
+    if (success) {
+      onSuccess(formData.userId);
+      reset();
+    }
+  };
 
   return {
     /** state */
     formData,
     visibility,
-    errors,
+    confirmError,
+    isSubmitted,
     errorMessage,
     isMatched,
     hasConfirmPassword,
     isFormValid,
+    authError,
+    validationError,
 
     /** actions */
     handleChange,

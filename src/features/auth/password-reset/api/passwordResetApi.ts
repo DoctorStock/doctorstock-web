@@ -1,15 +1,13 @@
-import type { PasswordResetCredentials } from '@/entities/auth';
 import axios from 'axios';
+import type {
+  PasswordResetRequest,
+  PasswordResetResponse,
+} from '@/entities/auth/model/types';
 
 export const passwordResetApi = async (
-  credentials: PasswordResetCredentials
-) => {
-  const { data } = await axios.put(
-    `/api/users/${credentials.userId}/password`,
-    {
-      currentPassword: credentials.currentPassword,
-      newPassword: credentials.newPassword,
-    }
-  );
+  payload: PasswordResetRequest,
+): Promise<PasswordResetResponse> => {
+  const { data } = await axios.post('/api/auth/change-password', payload);
+
   return data;
 };

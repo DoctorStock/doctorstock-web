@@ -6,7 +6,7 @@ export const navigationItems: NavigationSection[] = [
       {
         title: '홈',
         href: '/home',
-        icon: '/assets/home.svg',
+        icon: 'home',
       },
     ],
   },
@@ -16,22 +16,22 @@ export const navigationItems: NavigationSection[] = [
       {
         title: '재고 현황',
         href: '/status',
-        icon: '/assets/box.svg',
+        icon: 'box',
       },
       {
         title: '입고 및 구매',
         href: '/purchase',
-        icon: '/assets/cart.svg',
+        icon: 'cart',
       },
       {
         title: '사용',
         href: '/usage',
-        icon: '/assets/check.svg',
+        icon: 'check',
       },
       {
         title: '이력관리',
         href: '/history',
-        icon: '/assets/list.svg',
+        icon: 'list',
       },
     ],
   },
@@ -41,12 +41,12 @@ export const navigationItems: NavigationSection[] = [
       {
         title: '분석',
         href: '/analysis',
-        icon: '/assets/chart.svg',
+        icon: 'chart',
       },
       {
         title: '게시판',
         href: '/board',
-        icon: '/assets/notice.svg',
+        icon: 'notice',
       },
     ],
   },
@@ -55,7 +55,7 @@ export const navigationItems: NavigationSection[] = [
         {
           title: '설정',
           href: '/settings',
-          icon: '/assets/settings.svg',
+          icon: 'setting',
         },
       ],
   }

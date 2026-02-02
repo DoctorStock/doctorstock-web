@@ -1,11 +1,11 @@
-import type { LoginCredentials } from '@/entities/auth';
 import axios from 'axios';
+import type { LoginResponse } from '@/features/auth/login';
+import type { LoginRequest } from '@/entities/auth';
 
-export const loginApi = async (credentials: LoginCredentials) => {
-  const { data } = await axios.post('/api/auth/login', {
-    name: credentials.userId,
-    password: credentials.userPassword,
-  });
+export const loginApi = async (
+  payload: LoginRequest,
+): Promise<LoginResponse> => {
+  const { data } = await axios.post('/api/auth/login', payload);
 
   return data;
 };

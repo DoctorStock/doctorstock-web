@@ -2,7 +2,10 @@ import clsx from 'clsx';
 import styles from './LoginForm.module.css';
 
 import { useLoginForm } from '@/features/auth/login/';
-import { PasswordResetModal } from '@/features/auth/password-reset/';
+import {
+  PasswordResetModal,
+  PasswordResetAlertModal,
+} from '@/features/auth/password-reset/';
 
 export function LoginForm() {
   const {
@@ -17,13 +20,13 @@ export function LoginForm() {
     hasError,
 
     isPasswordResetModalOpen,
-    // isBasicModalOpen,
-    // basicModalMessage,
+    isPasswordResetAlertModalOpen,
+    passwordResetUserId,
 
     setAutoLogin,
     setSaveId,
     setIsPasswordResetModalOpen,
-    // setIsBasicModalOpen,
+    setIsPasswordResetAlertModalOpen,
 
     handleChangeUserId,
     handleChangePassword,
@@ -114,7 +117,7 @@ export function LoginForm() {
                 checked={autoLogin}
                 onChange={(e) => setAutoLogin(e.target.checked)}
               />
-              <span>자동로그인</span>
+              <span>자동 로그인</span>
             </label>
 
             <label className="custom-checkbox">
@@ -123,7 +126,7 @@ export function LoginForm() {
                 checked={saveId}
                 onChange={(e) => setSaveId(e.target.checked)}
               />
-              <span>아이디저장</span>
+              <span>아이디 저장</span>
             </label>
           </div>
 
@@ -139,6 +142,7 @@ export function LoginForm() {
                 type="submit"
                 disabled={!isFormValid}
                 className={clsx(styles.loginSubmitBtn, 'btn-primary')}
+                onClick={() => handleSubmit()}
               >
                 로그인
               </button>
@@ -162,11 +166,11 @@ export function LoginForm() {
         onSuccess={handlePasswordResetSuccess}
       />
 
-      {/* <BasicModal
-        isOpen={isBasicModalOpen}
-        onClose={() => setIsBasicModalOpen(false)}
-        message={basicModalMessage}
-      /> */}
+      <PasswordResetAlertModal
+        isOpen={isPasswordResetAlertModalOpen}
+        onClose={() => setIsPasswordResetAlertModalOpen(false)}
+        userId={passwordResetUserId}
+      />
     </div>
   );
 }

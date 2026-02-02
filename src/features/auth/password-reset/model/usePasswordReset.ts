@@ -1,69 +1,93 @@
 import { useCallback, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+
 import { SUPER_ADMIN_ID } from '@/shared/config/auth';
-import { getLoginErrorMessages } from '@/shared/constants/loginErrorMessages';
+import { validatePassword } from '@/entities/auth';
+import type { PasswordResetRequest } from '@/entities/auth/model/types';
+
 import {
-  validatePassword,
-  type PasswordResetCredentials,
-} from '@/entities/auth';
-import { passwordResetApi } from '@/features/auth/password-reset';
+  PASSWORD_RESET_VALIDATION_MESSAGES,
+  getPasswordResetErrorMessage,
+} from '@/features/auth/password-reset';
+
+import { passwordResetApi } from '../api/passwordResetApi';
+import type { PasswordResetCredentials } from '../model/types';
+import axios from 'axios';
 
 export function usePasswordReset() {
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorType, setErrorType] = useState<'auth' | 'validation' | null>(
+    null
+  );
 
-  const mutation = useMutation({ mutationFn: passwordResetApi });
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: passwordResetApi,
+  });
 
   const clearError = useCallback(() => {
     setErrorMessage('');
   }, []);
 
   const passwordReset = useCallback(
-    async (
-      credentials: PasswordResetCredentials
-    ): Promise<{ success: boolean; userId?: string }> => {
+    async (credentials: PasswordResetCredentials): Promise<boolean> => {
       clearError();
 
-      if (credentials.currentPassword === credentials.newPassword) {
-        setErrorMessage(
-          '현재 비밀번호와 동일합니다. 다른 비밀번호를 사용해 주세요.'
-        );
-        return { success: false };
-      }
-      const isSuperAdmin = credentials.userId === SUPER_ADMIN_ID;
-      if (
-        !validatePassword(credentials.newPassword, {
-          skip: isSuperAdmin,
-        })
-      ) {
-        setErrorMessage(
-          '영문, 숫자, 특수문자를 포함하여 8자 이상 입력해 주세요.'
-        );
-        return { success: false };
-      }
-      try {
-        const data = await mutation.mutateAsync(credentials);
+      const { userId, currentPassword, newPassword } = credentials;
 
-        if (!data.success) {
-          setErrorMessage(getLoginErrorMessages(data.errorCode));
-          return { success: false };
+      // 동일 비밀번호 체크
+      if (currentPassword === newPassword) {
+        setErrorMessage(PASSWORD_RESET_VALIDATION_MESSAGES.SAME_PASSWORD);
+        setErrorType('validation');
+        return false;
+      }
+
+      // 비밀번호 규칙 체크
+      if (userId !== SUPER_ADMIN_ID && !validatePassword(newPassword)) {
+        setErrorMessage(PASSWORD_RESET_VALIDATION_MESSAGES.INVALID_PASSWORD);
+        setErrorType('validation');
+        return false;
+      }
+
+      try {
+        // 서버 스펙에 맞게 필드명 변환
+        const payload: PasswordResetRequest = {
+          loginId: userId,
+          currentPassword,
+          newPassword,
+        };
+
+        const response = await mutateAsync(payload);
+
+        if (!response.success) {
+          setErrorMessage(getPasswordResetErrorMessage(response.error?.code));
+          setErrorType('auth');
+          return false;
         }
-        return { success: true, userId: credentials.userId };
+
+        return true;
       } catch (error) {
-        console.error('reset password error', error);
-        setErrorMessage(
-          '비밀번호 변경에 실패했습니다. 관리자에게 문의해 주세요.'
-        );
-        return { success: false };
+        // axios 에러 처리
+        if (axios.isAxiosError(error)) {
+          setErrorMessage(
+            getPasswordResetErrorMessage(error.response?.data?.error?.code)
+          );
+          setErrorType('auth');
+        } else {
+          setErrorMessage(getPasswordResetErrorMessage());
+          setErrorType('auth');
+        }
+        return false;
       }
     },
-    [mutation, clearError]
+    [mutateAsync, clearError]
   );
 
   return {
-    errorMessage,
-    hasError: !!errorMessage,
-    isLoading: mutation.isPending,
     passwordReset,
+    errorMessage,
+    errorType,
+    hasError: !!errorMessage,
+    isLoading: isPending,
     clearError,
   };
 }

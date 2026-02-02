@@ -21,6 +21,13 @@
   color: var(--gray-g800);
 }
 
+.titleActive {
+  background-color: var(--gray-g150);
+  border-radius: var(--radius-4);
+  color: var(--blue-b750);
+  width: fit-content;
+}
+
 .settingsButton {
   display: flex;
   align-items: center;

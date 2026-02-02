@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { getSavedUserId, removeSavedId, saveUserId } from '@/entities/auth';
 import { AUTH_STORAGE_KEYS } from '@/shared/config/auth';
 import { useLogin } from '@/features/auth/login';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginFormValues {
   userId: string;
@@ -10,34 +11,31 @@ interface LoginFormValues {
 
 export function useLoginForm() {
   const savedUserId = getSavedUserId();
+  const navigate = useNavigate();
 
   const [userId, setUserId] = useState(() => savedUserId ?? '');
   const [userPassword, setUserPassword] = useState('');
   const [visibility, setVisibility] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
   const [saveId, setSaveId] = useState(() => Boolean(savedUserId));
-
   const [isPasswordResetModalOpen, setIsPasswordResetModalOpen] =
     useState(false);
-  const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
-  const [basicModalMessage, setBasicModalMessage] = useState('');
+  const [isPasswordResetAlertModalOpen, setIsPasswordResetAlertModalOpen] =
+    useState(false);
+  const [passwordResetUserId, setPasswordResetUserId] = useState<string | null>(
+    null
+  );
 
-  /** ======================
-   * Auth Entity 
-   ====================== */
+  /** auth */
   const { login, clearError, errorMessage, hasError } = useLogin();
 
-  /** ======================
-   * 폼 유효성
-   ====================== */
+  /** 폼 유효성 */
   const isFormValid = useMemo(
     () => userId.trim() !== '' && userPassword.trim() !== '',
     [userId, userPassword]
   );
 
-  /** ======================
-   * 핸들러
-   ====================== */
+  /** 핸들러 */
   const handleChangeUserId = useCallback(
     (value: string) => {
       setUserId(value);
@@ -58,45 +56,38 @@ export function useLoginForm() {
     setVisibility((prev) => !prev);
   }, []);
 
-  const handleSubmit = useCallback(
-    async (values?: LoginFormValues) => {
-      const payload = values ?? { userId, userPassword };
+  const handleLoginSuccess = useCallback(
+    (userId: string) => {
+      if (saveId) saveUserId(userId);
+      else removeSavedId();
 
-      const success = await login(
-        {
-          userId: payload.userId,
-          userPassword: payload.userPassword,
-        },
-        autoLogin
+      localStorage.setItem(
+        AUTH_STORAGE_KEYS.AUTO_LOGIN,
+        autoLogin ? 'true' : 'false'
       );
 
-      if (success) {
-        //1. 아이디 저장
-        if (saveId) {
-          saveUserId(payload.userId);
-        } else {
-          removeSavedId();
-        }
-
-        //2. 자동 로그인 설정
-
-        localStorage.setItem(
-          AUTH_STORAGE_KEYS.AUTO_LOGIN,
-          autoLogin ? 'true' : 'false'
-        );
-      }
+      navigate('/');
     },
-    [userId, userPassword, saveId, autoLogin, login]
+    [saveId, autoLogin, navigate]
   );
 
-  /** ======================
-   * 비밀번호 재설정 성공 처리
-   ====================== */
+  const handleSubmit = useCallback(
+    async (values?: LoginFormValues) => {
+      const formValues = values ?? { userId, userPassword };
+      const success = await login(formValues, autoLogin);
+
+      if (success) {
+        handleLoginSuccess(formValues.userId);
+      }
+    },
+    [userId, userPassword, autoLogin, login, handleLoginSuccess]
+  );
+
+  /** 비밀번호 재설정 성공 처리 */
   const handlePasswordResetSuccess = useCallback((userId: string) => {
-    setBasicModalMessage(
-      `아이디 ${userId}의 비밀번호를 변경하였습니다. 새로운 비밀번호로 로그인 해주세요.`
-    );
-    setIsBasicModalOpen(true);
+    setPasswordResetUserId(userId);
+    setIsPasswordResetModalOpen(false);
+    setIsPasswordResetAlertModalOpen(true);
   }, []);
 
   return {
@@ -114,14 +105,14 @@ export function useLoginForm() {
 
     /** 모달 */
     isPasswordResetModalOpen,
-    isBasicModalOpen,
-    basicModalMessage,
+    isPasswordResetAlertModalOpen,
+    passwordResetUserId,
 
     /** setters */
     setAutoLogin,
     setSaveId,
     setIsPasswordResetModalOpen,
-    setIsBasicModalOpen,
+    setIsPasswordResetAlertModalOpen,
 
     /** handlers */
     handleChangeUserId,

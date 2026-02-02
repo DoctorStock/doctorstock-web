@@ -5,10 +5,12 @@ import { NotificationList } from '@/features/notification';
 import { InboundWaitingList } from '@/features/inbound-waiting';
 import { ProductCategories } from '@/widgets/product-categories';
 import { InventoryMapWidget } from '@/widgets/inventory-map-widget';
+import { useAddToCart } from '@/features/product-category-set';
 import styles from './Page.module.css';
 
 export default function Home() {
-  const { handleSearch, handleSettingsClick } = useSearch();
+  const search = useSearch();
+  const { handleAddToCart } = useAddToCart();
   const {
     isOpen,
     openFilter,
@@ -31,7 +33,19 @@ export default function Home() {
         </div>
 
         <main className={styles.main}>
-          <SearchBar onSearch={handleSearch} onSettingsClick={handleSettingsClick} />
+          <SearchBar
+            query={search.query}
+            results={search.results}
+            isOpen={search.isOpen}
+            onInputChange={search.handleInputChange}
+            onSearch={search.handleSearch}
+            onSelect={search.handleSelect}
+            onClose={search.handleClose}
+            onSettingsClick={search.handleSettingsClick}
+            onFocus={search.handleFocus}
+            onToggleFavorite={search.handleToggleFavorite}
+            onAddToCart={handleAddToCart}
+          />
 
           <SelectedFilters
             selectedFilters={appliedFilters}
@@ -41,7 +55,7 @@ export default function Home() {
             onOpenFilter={openFilter}
           />
 
-          <InventoryMapWidget />
+          <InventoryMapWidget hasActiveFilters={activeFilters.size > 0} />
         </main>
 
         <aside className={styles.aside}>
@@ -50,7 +64,7 @@ export default function Home() {
         </aside>
 
         <div className={styles.categoriesRow}>
-          <ProductCategories />
+          <ProductCategories hasActiveFilters={activeFilters.size > 0} />
         </div>
       </div>
 
