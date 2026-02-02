@@ -1,6 +1,6 @@
-import axios from 'axios';
+import { apiClient } from '@/shared/api/axios';
 
 export const tokenRefreshApi = async (refreshToken: string) => {
-  const { data } = await axios.post('/api/auth/refresh', { refreshToken });
+  const { data } = await apiClient.post('/auth/refresh', { refreshToken });
   return data;
 };

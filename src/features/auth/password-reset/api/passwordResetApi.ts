@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { apiClient } from '@/shared/api/axios';
 import type {
   PasswordResetRequest,
   PasswordResetResponse,
@@ -7,7 +7,7 @@ import type {
 export const passwordResetApi = async (
   payload: PasswordResetRequest,
 ): Promise<PasswordResetResponse> => {
-  const { data } = await axios.post('/api/auth/change-password', payload);
+  const { data } = await apiClient.post('/auth/change-password', payload);
 
   return data;
 };
